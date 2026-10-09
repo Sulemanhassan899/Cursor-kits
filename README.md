@@ -1,4 +1,4 @@
-# Cursor-kits — QA + Archify (one repo)
+# Cursor-kits — QA 
 
 One kit for **QA agents** and **Archify / Live Guide**.
 
