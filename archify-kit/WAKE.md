@@ -1,3 +1,7 @@
+> **Usually you do not need this.**  
+> Waking the QA agent already runs Archify and opens Live Guide.  
+> Use the phrase below only for Archify-only work (no QA).
+
 # Archify wake phrases
 
 Kit home: `~/Documents/Archify-kit/`
