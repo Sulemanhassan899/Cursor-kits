@@ -1,0 +1,21 @@
+{
+  "scenario_id": "EMP-SPLASH-001",
+  "status": "Pass",
+  "layer": "A",
+  "role": "shared",
+  "module": "Splash",
+  "screen": "Launch",
+  "executed_at": "2026-10-08T12:00:00Z",
+  "duration_ms": 4500,
+  "online": true,
+  "offline": false,
+  "bug": null,
+  "notes": "Splash ~3s, navigated to onboarding.",
+  "evidence": {
+    "screenshots": [
+      "reports/sample_run/EMP-SPLASH-001.png"
+    ],
+    "log_refs": []
+  },
+  "agent": "01-employee-module"
+}

@@ -1,0 +1,7 @@
+{
+  "project_name": "My Project",
+  "title": "Live Guide",
+  "architecture_entry": "diagrams/guide/index.html",
+  "qa_root_relative": "qa",
+  "default_tab": "system"
+}

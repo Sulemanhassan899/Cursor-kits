@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "c8563fac-2ab9-44d4-827f-3619dd345416",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/hassan/Documents/obecno-archify/architecture-obecno-detailed-20261006-215549/auth/candidate.json",
+  "output": "/Users/hassan/Documents/obecno-archify/architecture-obecno-detailed-20261006-215549/auth/auth.html",
+  "specification": {
+    "sha256": "94bd58d9a1d9180a163d46ed4da8a9dd335f12ccfc539bd46b0d81bfb86fa915",
+    "bytes": 5722
+  },
+  "artifact": {
+    "sha256": "e10b7cdbb126537f649f34f2ab1ef22f6fda002d33cb21975f3c86cfd477f99b",
+    "bytes": 768480
+  }
+}

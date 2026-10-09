@@ -1,0 +1,7 @@
+.DS_Store
+**/credentials.local.yaml
+**/node_modules/
+projects/registry.local.yaml
+**/.last-live-url
+*.log
+.excel-cache/

@@ -1,0 +1,72 @@
+name: Deploy Archify Live Guide to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare site
+        run: |
+          mkdir -p _site
+          # Landing
+          cp README.md _site/ || true
+          cp docs/HOSTING.md _site/HOSTING.md || true
+          # Simple HTML landing
+          cat > _site/index.html <<'HTML'
+          <!DOCTYPE html>
+          <html lang="en"><head>
+          <meta charset="UTF-8"/>
+          <meta name="viewport" content="width=device-width, initial-scale=1"/>
+          <title>Archify Kit</title>
+          <style>
+            body{font-family:system-ui,sans-serif;max-width:720px;margin:3rem auto;padding:0 1rem;line-height:1.5;color:#0f172a}
+            a{color:#0369a1} code{background:#f1f5f9;padding:.1rem .35rem;border-radius:4px}
+          </style>
+          </head><body>
+          <h1>Archify Kit</h1>
+          <p>Architecture Live Guides published from this repository.</p>
+          <ul>
+            <li><a href="./projects/obecno/live-guide/">Obecno Live Guide</a></li>
+            <li><a href="./HOSTING.md">Hosting notes</a></li>
+            <li><a href="https://github.com/Sulemanhassan899/Archify-kit">GitHub repo</a></li>
+          </ul>
+          <p>Wake in Cursor: <code>Make the archify of this project</code></p>
+          </body></html>
+          HTML
+          # Copy projects (static)
+          if [ -d projects ]; then
+            mkdir -p _site/projects
+            rsync -a --exclude 'qa/results' --exclude 'qa/reports' --exclude 'credentials.local.yaml' \
+              --exclude 'registry.local.yaml' --exclude 'node_modules' \
+              projects/ _site/projects/ || cp -R projects _site/
+          fi
+          # Docs
+          mkdir -p _site/docs
+          cp -R docs/. _site/docs/ 2>/dev/null || true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

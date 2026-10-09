@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Obecno Employee Module Screens",
+    "subtitle": "Bottom tabs, clock / attendance sheets, and More entry",
+    "output": "employee-screens.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Sulemanhassan899/obecno.git",
+      "provider": "github",
+      "revision": "674dbc537595bdbcaba8142674b813cf27ffe7d2"
+    },
+    "views": [
+      {
+        "id": "tabs",
+        "label": "Four tabs",
+        "focus": ["employee-nav", "clock", "attendance", "alerts", "more"],
+        "note": "EmployeeBottomNavBar hosts the four primary screens"
+      },
+      {
+        "id": "attendance-detail",
+        "label": "Attendance sheets",
+        "focus": ["attendance", "details-sheet", "add-sheet", "holiday-sheet"],
+        "note": "Day taps open detail / add / holiday bottom sheets"
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "employee-nav",
+      "type": "frontend",
+      "label": "Employee shell",
+      "sublabel": "/employee_nav",
+      "pos": [520, 300],
+      "size": [148, 64],
+      "tag": "bottom nav",
+      "sources": [{ "path": "lib/widgets/bottom_nav_bars/employee_nav.dart", "line": 44, "end_line": 50, "label": "tab screens" }]
+    },
+    {
+      "id": "clock",
+      "type": "frontend",
+      "label": "Clock",
+      "sublabel": "tab 0 · punch in/out",
+      "pos": [180, 140],
+      "size": [140, 64]
+    },
+    {
+      "id": "attendance",
+      "type": "frontend",
+      "label": "Attendance",
+      "sublabel": "tab 1 · history",
+      "pos": [400, 140],
+      "size": [140, 64]
+    },
+    {
+      "id": "alerts",
+      "type": "frontend",
+      "label": "Alerts",
+      "sublabel": "tab 2 · inbox",
+      "pos": [620, 140],
+      "size": [140, 64]
+    },
+    {
+      "id": "more",
+      "type": "frontend",
+      "label": "More",
+      "sublabel": "tab 3 · profile hub",
+      "pos": [840, 140],
+      "size": [140, 64]
+    },
+    {
+      "id": "location-sheet",
+      "type": "frontend",
+      "label": "Location sheet",
+      "sublabel": "pick office / GPS",
+      "pos": [180, 460],
+      "size": [140, 62],
+      "tag": "sheet",
+      "sources": [{ "path": "lib/features/clock/presentation/screens/clock_screen.dart", "line": 461, "end_line": 468, "label": "location sheet" }]
+    },
+    {
+      "id": "details-sheet",
+      "type": "frontend",
+      "label": "Day details",
+      "sublabel": "AttendanceDetailsSheet",
+      "pos": [400, 460],
+      "size": [148, 62],
+      "tag": "sheet"
+    },
+    {
+      "id": "add-sheet",
+      "type": "frontend",
+      "label": "Add attendance",
+      "sublabel": "AddAttendanceBottomSheet",
+      "pos": [620, 460],
+      "size": [156, 62],
+      "tag": "sheet"
+    },
+    {
+      "id": "holiday-sheet",
+      "type": "frontend",
+      "label": "Holiday detail",
+      "sublabel": "HolidayBottomSheet",
+      "pos": [840, 460],
+      "size": [140, 62],
+      "tag": "sheet"
+    },
+    {
+      "id": "month-picker",
+      "type": "frontend",
+      "label": "Month picker",
+      "sublabel": "MonthYearPickerSheet",
+      "pos": [400, 580],
+      "size": [148, 62],
+      "tag": "sheet"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Employee bottom navigation",
+      "wraps": ["employee-nav", "clock", "attendance", "alerts", "more"],
+      "pad": 18
+    },
+    {
+      "kind": "region",
+      "label": "Overlays opened from Clock / Attendance",
+      "wraps": ["location-sheet", "details-sheet", "add-sheet", "holiday-sheet", "month-picker"],
+      "pad": 14
+    }
+  ],
+  "connections": [
+    { "id": "nav-clock", "from": "employee-nav", "to": "clock", "label": "Clock", "fromSide": "top", "toSide": "bottom" },
+    { "id": "nav-att", "from": "employee-nav", "to": "attendance", "label": "Attendance", "fromSide": "top", "toSide": "bottom" },
+    { "id": "nav-alerts", "from": "employee-nav", "to": "alerts", "label": "Alerts", "fromSide": "top", "toSide": "bottom" },
+    { "id": "nav-more", "from": "employee-nav", "to": "more", "label": "More", "fromSide": "top", "toSide": "bottom" },
+    { "id": "clock-loc", "from": "clock", "to": "location-sheet", "label": "change location", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "att-details", "from": "attendance", "to": "details-sheet", "label": "day tap", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "att-add", "from": "attendance", "to": "add-sheet", "label": "add / edit", "variant": "dashed" },
+    { "id": "att-holiday", "from": "attendance", "to": "holiday-sheet", "label": "holiday day", "variant": "dashed" },
+    { "id": "att-month", "from": "attendance", "to": "month-picker", "label": "change month", "variant": "dashed", "fromSide": "bottom", "toSide": "top" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "What's on each tab",
+      "items": [
+        "Clock: live punch + location context",
+        "Attendance: calendar history and day overlays",
+        "Alerts: notifications inbox",
+        "More: shared profile / settings hub"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Sheets vs screens",
+      "items": [
+        "Tabs are full screens inside the shell",
+        "Location / details / add / holiday open as bottom sheets"
+      ]
+    }
+  ]
+}

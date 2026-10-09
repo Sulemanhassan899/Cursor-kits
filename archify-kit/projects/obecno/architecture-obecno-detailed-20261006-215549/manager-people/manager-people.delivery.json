@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "668f4ab4-fac3-4fbc-8705-9a22a6ee1dd7",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/hassan/Documents/obecno-archify/architecture-obecno-detailed-20261006-215549/manager-people/candidate.json",
+  "output": "/Users/hassan/Documents/obecno-archify/architecture-obecno-detailed-20261006-215549/manager-people/manager-people.html",
+  "specification": {
+    "sha256": "6f307f7948c092ce3bc5c9cb2d4271259524bc85c7196ccc0d063bc7f5abccd9",
+    "bytes": 6270
+  },
+  "artifact": {
+    "sha256": "b001f7ea6cafd6e110b397edbaf127ba9a1ae4fed5470030593b32d4413b683a",
+    "bytes": 789487
+  }
+}

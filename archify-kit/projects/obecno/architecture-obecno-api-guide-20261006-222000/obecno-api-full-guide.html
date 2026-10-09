@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Obecno API — Full Architecture Guide</title>
+  <style>
+    :root {
+      --bg: #020617;
+      --panel: #0b1220;
+      --border: #1e293b;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-dim: rgba(56, 189, 248, 0.12);
+      --nav-w: 220px;
+      --top-h: 52px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      min-height: 100%;
+    }
+    .app-top {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      height: var(--top-h);
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0 1rem 0 calc(var(--nav-w) + 1rem);
+      background: rgba(2, 6, 23, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .app-top h1 {
+      margin: 0;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .app-top .tag {
+      font-size: 0.68rem;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      padding: 0.18rem 0.45rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .side-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: var(--nav-w);
+      z-index: 50;
+      overflow-y: auto;
+      padding: 0.85rem 0.7rem 1.5rem;
+      background: #060b16;
+      border-right: 1px solid var(--border);
+    }
+    .side-nav .brand {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0.2rem 0.4rem 0.85rem;
+    }
+    .side-nav .group {
+      margin: 0.75rem 0 0.25rem;
+      padding: 0 0.4rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+    .side-nav a {
+      display: block;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.74rem;
+      line-height: 1.3;
+      padding: 0.38rem 0.5rem;
+      border-radius: 5px;
+      border: 1px solid transparent;
+      margin-bottom: 2px;
+    }
+    .side-nav a:hover,
+    .side-nav a.is-active {
+      color: var(--text);
+      border-color: var(--border);
+      background: var(--panel);
+    }
+    main {
+      margin-left: var(--nav-w);
+      max-width: 1600px;
+      padding: 1.15rem 1.35rem 3.5rem;
+    }
+    .note {
+      margin: 0 0 1.35rem;
+      padding: 0.9rem 1.05rem;
+      border: 1px solid var(--border);
+      border-left: 3px solid #94a3b8;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+    .note code { color: #7dd3fc; }
+    .note strong { color: #cbd5e1; font-weight: 600; }
+    section.diagram {
+      margin-bottom: 2.4rem;
+      scroll-margin-top: calc(var(--top-h) + 14px);
+    }
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.55rem 0.85rem;
+      margin-bottom: 0.7rem;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.08rem;
+      font-weight: 600;
+    }
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.74rem;
+    }
+    .frame-wrap {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 14px 48px rgba(0, 0, 0, 0.38);
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 100%;
+    }
+    .frame-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.55rem;
+      background: #0b1220;
+      border-bottom: 1px solid var(--border);
+      flex: 0 0 auto;
+    }
+    .frame-toolbar .zoom-btn {
+      width: 32px;
+      height: 28px;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      background: #111827;
+      color: var(--text);
+      font-size: 1.05rem;
+      line-height: 1;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .frame-toolbar .zoom-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .frame-toolbar .zoom-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .frame-toolbar .zoom-label {
+      min-width: 3.2rem;
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .frame-toolbar .zoom-fit {
+      margin-left: 0.25rem;
+      height: 28px;
+      padding: 0 0.65rem;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      background: #111827;
+      color: var(--muted);
+      font-size: 0.68rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .frame-toolbar .zoom-fit:hover { color: var(--text); border-color: #334155; }
+    .frame-viewport {
+      position: relative;
+      width: 100%;
+      height: clamp(280px, 62vh, 820px);
+      overflow: auto;
+      background: #000;
+      overscroll-behavior: contain;
+    }
+    .frame-wrap.frame-runtime .frame-viewport {
+      height: clamp(300px, 68vh, 900px);
+    }
+    .frame-scaler {
+      transform-origin: 0 0;
+      will-change: transform;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .frame-wrap iframe {
+      display: block;
+      width: 1400px;
+      height: 900px;
+      border: 0;
+      background: var(--bg);
+    }
+    .frame-wrap.frame-runtime iframe {
+      background: #000;
+    }
+    @media (max-width: 960px) {
+      .frame-viewport { height: clamp(240px, 55vh, 640px); }
+      .frame-wrap iframe { width: 1100px; height: 760px; }
+    }
+    @media (max-width: 640px) {
+      .frame-viewport { height: clamp(220px, 50vh, 520px); }
+      .frame-wrap iframe { width: 900px; height: 640px; }
+    }
+    .api-grid-wrap {
+      margin-top: 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--panel);
+      overflow: hidden;
+    }
+    .api-grid-wrap h3 {
+      margin: 0;
+      padding: 0.65rem 0.9rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #93a1b0;
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.65);
+    }
+    .api-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0;
+    }
+    .api-card {
+      padding: 0.75rem 0.9rem;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      display: grid;
+      gap: 0.4rem;
+      align-content: start;
+    }
+    .api-card .title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+    .api-card .purpose {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .api-card .row {
+      font-size: 0.7rem;
+      line-height: 1.35;
+      color: #cbd5e1;
+    }
+    .api-card .row code {
+      color: #7dd3fc;
+      word-break: break-all;
+    }
+    .api-card .method {
+      color: #5eead4;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.64rem;
+      margin-right: 0.35rem;
+    }
+    .api-card .sheet {
+      color: #fbbf24;
+    }
+    .api-card .empty {
+      font-size: 0.7rem;
+      color: #64748b;
+      font-style: italic;
+    }
+    @media (max-width: 960px) {
+      :root { --nav-w: 0px; }
+      .side-nav {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: auto;
+        max-height: none;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        padding: 0.55rem 0.65rem;
+        z-index: 45;
+      }
+      .side-nav .brand,
+      .side-nav .group { display: none; }
+      .side-nav a {
+        font-size: 0.68rem;
+        padding: 0.28rem 0.45rem;
+        margin: 0;
+      }
+      .app-top { padding-left: 1rem; }
+      main { margin-left: 0; padding: 1rem 0.85rem 2.5rem; }
+      .frame-wrap iframe,
+      .frame-wrap.frame-runtime iframe { height: 78vh; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="side-nav" aria-label="Guide sections">
+    <div class="brand">Sections</div>
+    <div class="group">Runtime</div>
+    <a href="#runtime">Mobile runtime</a>
+    <div class="group">Screen flows</div>
+    <a href="#screens-auth">Launch &amp; auth</a>
+    <a href="#screens-employee">Employee</a>
+    <a href="#screens-manager">Manager</a>
+    <a href="#screens-more">More / settings</a>
+    <div class="group">Detailed / API maps</div>
+    <a href="#auth">Auth APIs</a>
+    <a href="#employee">Employee APIs</a>
+    <a href="#manager-tabs">Manager tabs</a>
+    <a href="#manager-people">Manager people</a>
+    <a href="#more">More APIs</a>
+  </nav>
+
+  <header class="app-top">
+    <h1>Obecno API — Full Guide</h1>
+    <span class="tag">single scroll · diagrams unchanged</span>
+  </header>
+
+  <main>
+    <p class="note">
+      <strong>Dashed lines</strong> on the detailed employee / manager / more maps are
+      <strong>bottom-sheet flows</strong> (sheet open / return), not HTTP calls.
+      Click a screen node inside an iframe for APIs + sheets via passport
+      (<code>screen-catalog.js</code> + <code>passport-enhance.js</code>).
+      Grids under each section list the same catalog entries for scanning without clicking.
+    </p>
+
+    <!-- a) Mobile runtime -->
+    <section class="diagram" id="runtime">
+      <div class="section-head">
+        <h2>Mobile runtime</h2>
+        <p>Flutter client · native · REST · enhanced/runtime.html</p>
+      </div>
+      <div class="frame-wrap frame-runtime" data-zoom-root>
+        <div class="frame-toolbar" aria-label="Diagram zoom">
+          <button type="button" class="zoom-btn" data-zoom-out title="Zoom out" aria-label="Zoom out">−</button>
+          <span class="zoom-label" data-zoom-label>100%</span>
+          <button type="button" class="zoom-btn" data-zoom-in title="Zoom in" aria-label="Zoom in">+</button>
+          <button type="button" class="zoom-fit" data-zoom-fit title="Fit to screen">Fit</button>
+        </div>
+        <div class="frame-viewport" data-zoom-viewport>
+          <div class="frame-scaler" data-zoom-scaler>
+            <iframe
+          title="Obecno mobile runtime"
+          src="enhanced/runtime.html?theme=dark&amp;embed=1"
+          loading="eager"
+          referrerpolicy="same-origin"
+        ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- b) Screen flows -->
+    <section class="diagram" id="screens-auth">
+      <div class="section-head">
+        <h2>Screen flow · Launch &amp; auth</h2>
+        <p>Screen-by-screen · enhanced/auth-screens.html</p>
+      </div>
+      <div class="frame-wrap" data-zoom-root>
+        <div class="frame-toolbar" aria-label="Diagram zoom">
+          <button type="button" class="zoom-btn" data-zoom-out title="Zoom out" aria-label="Zoom out">−</button>
+          <span class="zoom-label" data-zoom-label>100%</span>
+          <button type="button" class="zoom-btn" data-zoom-in title="Zoom in" aria-label="Zoom in">+</button>
+          <button type="button" class="zoom-fit" data-zoom-fit title="Fit to screen">Fit</button>
+        </div>
+        <div class="frame-viewport" data-zoom-viewport>
+          <div class="frame-scaler" data-zoom-scaler>
+            <iframe title="Launch and auth screens" src="enhanced/auth-screens.html?theme=dark&amp;embed=1" loading="lazy" referrerpolicy="same-origin"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="api-grid-wrap" data-catalog-keys="open,splash,onboarding,demo,invite,joined,login,password,forgot,permissions,blocked,employee,manager">
+        <h3>APIs &amp; sheets · launch &amp; auth</h3>
+        <div class="api-grid"></div>
+      </div>
+    </section>
+
+    <section class="diagram" id="screens-employee">
+      <div class="section-head">
+        <h2>Screen flow · Employee</h2>
+        <p>Screen-by-screen · enhanced/employee-screens.html</p>
+      </div>
+      <div class="frame-wrap" data-zoom-root>
+        <div class="frame-toolbar" aria-label="Diagram zoom">
+          <button type="button" class="zoom-btn" data-zoom-out title="Zoom out" aria-label="Zoom out">−</button>
+          <span class="zoom-label" data-zoom-label>100%</span>
+          <button type="button" class="zoom-btn" data-zoom-in title="Zoom in" aria-label="Zoom in">+</button>
+          <button type="button" class="zoom-fit" data-zoom-fit title="Fit to screen">Fit</button>
+        </div>
+        <div class="frame-viewport" data-zoom-viewport>
+          <div class="frame-scaler" data-zoom-scaler>
+            <iframe title="Employee screens" src="enhanced/employee-screens.html?theme=dark&amp;embed=1" loading="lazy" referrerpolicy="same-origin"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="api-grid-wrap" data-catalog-keys="shell,clock,attendance,alerts,more,loc-sheet,day-sheet,add-sheet,holiday,month">
+        <h3>APIs &amp; sheets · employee screens</h3>
+        <div class="api-grid"></div>
+      </div>
+    </section>
+
+    <section class="diagram" id="screens-manager">
+      <div class="section-head">
+        <h2>Screen flow · Manager</h2>
+        <p>Screen-by-screen · enhanced/manager-screens.html</p>
+      </div>
+      <div class="frame-wrap" data-zoom-root>
+        <div class="frame-toolbar" aria-label="Diagram zoom">
+          <button type="button" class="zoom-btn" data-zoom-out title="Zoom out" aria-label="Zoom out">−</button>
+          <span class="zoom-label" data-zoom-label>100%</span>
+          <button type="button" class="zoom-btn" data-zoom-in title="Zoom in" aria-label="Zoom in">+</button>
+          <button type="button" class="zoom-fit" data-zoom-fit title="Fit to screen">Fit</button>
+        </div>
+        <div class="frame-viewport" data-zoom-viewport>
+          <div class="frame-scaler" data-zoom-scaler>
+            <iframe title="Manager screens" src="enhanced/manager-screens.html?theme=dark&amp;embed=1" loading="lazy" referrerpolicy="same-origin"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="api-grid-wrap" data-catalog-keys="shell,overview,clock,attendance,alerts,more,add-emp,add-loc,all-emp,all-loc,emp-profile,emp-att,emp-locs,emp-devices,emp-timing,loc-overview,loc-setup,loc-map,att-details,status-filter,loc-filter">
+        <h3>APIs &amp; sheets · manager screens</h3>
+        <div class="api-grid"></div>
+      </div>
+    </section>
+
+    <section class="diagram" id="screens-more">
+      <div class="section-head">
+        <h2>Screen flow · More / settings</h2>
+        <p>Menu index &amp; settings · enhanced/more-screens.html</p>
+      </div>
+      <div class="frame-wrap" data-zoom-root>
+        <div class="frame-toolbar" aria-label="Diagram zoom">
+          <button type="button" class="zoom-btn" data-zoom-out title="Zoom out" aria-label="Zoom out">−</button>
+          <span class="zoom-label" data-zoom-label>100%</span>
+          <button type="button" class="zoom-btn" data-zoom-in title="Zoom in" aria-label="Zoom in">+</button>
+          <button type="button" class="zoom-fit" data-zoom-fit title="Fit to screen">Fit</button>
+        </div>
+        <div class="frame-viewport" data-zoom-viewport>
+          <div class="frame-scaler" data-zoom-scaler>
+            <iframe title="More and settings screens" src="enhanced/more-screens.html?theme=dark&amp;embed=1" loading="lazy" referrerpolicy="same-origin"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="api-grid-wrap" data-catalog-keys="hub,account,offices,reminders,pickers,devices,terms,privacy,help,sent,logout,more">
+        <h3>APIs &amp; sheets · more / settings</h3>
+        <div class="api-grid"></div>
+      </div>
+    </section>
+
+    <!-- c) Detailed / API maps (dashed sheet flows already in enhanced employee/manager/more) -->
+    <section class="diagram" id="auth">
+      <div class="section-head">
+        <h2>Detailed map · Auth</h2>
+        <p>Launch &amp; authentication APIs · enhanced/auth.html</p>
+      </div>
+      <div class="frame-wrap" data-zoom-root>
+        <div class="frame-toolbar" aria-label="Diagram zoom">
+          <button type="button" class="zoom-btn" data-zoom-out title="Zoom out" aria-label="Zoom out">−</button>
+          <span class="zoom-label" data-zoom-label>100%</span>
+          <button type="button" class="zoom-btn" data-zoom-in title="Zoom in" aria-label="Zoom in">+</button>
+          <button type="button" class="zoom-fit" data-zoom-fit title="Fit to screen">Fit</button>
+        </div>
+        <div class="frame-viewport" data-zoom-viewport>
+          <div class="frame-scaler" data-zoom-scaler>
+            <iframe title="Auth architecture" src="enhanced/auth.html?theme=dark&amp;embed=1" loading="lazy" referrerpolicy="same-origin"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="api-grid-wrap" data-catalog-keys="open,splash,onboarding,demo,invite,joined,login,password,forgot,permissions,blocked">
+        <h3>APIs &amp; sheets · auth map</h3>
+        <div class="api-grid"></div>
+      </div>
+    </section>
+
+    <section class="diagram" id="employee">
+      <div class="section-head">
+        <h2>Detailed map · Employee</h2>
+        <p>Includes dashed bottom-sheet flows · enhanced/employee.html</p>
+      </div>
+      <div class="frame-wrap" data-zoom-root>
+        <div class="frame-toolbar" aria-label="Diagram zoom">
+          <button type="button" class="zoom-btn" data-zoom-out title="Zoom out" aria-label="Zoom out">−</button>
+          <span class="zoom-label" data-zoom-label>100%</span>
+          <button type="button" class="zoom-btn" data-zoom-in title="Zoom in" aria-label="Zoom in">+</button>
+          <button type="button" class="zoom-fit" data-zoom-fit title="Fit to screen">Fit</button>
+        </div>
+        <div class="frame-viewport" data-zoom-viewport>
+          <div class="frame-scaler" data-zoom-scaler>
+            <iframe title="Employee architecture" src="enhanced/employee.html?theme=dark&amp;embed=1" loading="lazy" referrerpolicy="same-origin"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="api-grid-wrap" data-catalog-keys="shell,clock,attendance,alerts,more,loc-sheet,day-sheet,add-sheet,holiday,month">
+        <h3>APIs &amp; sheets · employee map</h3>
+        <div class="api-grid"></div>
+      </div>
+    </section>
+
+    <section class="diagram" id="manager-tabs">
+      <div class="section-head">
+        <h2>Detailed map · Manager tabs</h2>
+        <p>Manager navigation tabs · enhanced/manager-tabs.html</p>
+      </div>
+      <div class="frame-wrap" data-zoom-root>
+        <div class="frame-toolbar" aria-label="Diagram zoom">
+          <button type="button" class="zoom-btn" data-zoom-out title="Zoom out" aria-label="Zoom out">−</button>
+          <span class="zoom-label" data-zoom-label>100%</span>
+          <button type="button" class="zoom-btn" data-zoom-in title="Zoom in" aria-label="Zoom in">+</button>
+          <button type="button" class="zoom-fit" data-zoom-fit title="Fit to screen">Fit</button>
+        </div>
+        <div class="frame-viewport" data-zoom-viewport>
+          <div class="frame-scaler" data-zoom-scaler>
+            <iframe title="Manager tabs architecture" src="enhanced/manager-tabs.html?theme=dark&amp;embed=1" loading="lazy" referrerpolicy="same-origin"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="api-grid-wrap" data-catalog-keys="shell,overview,clock,attendance,alerts,more">
+        <h3>APIs &amp; sheets · manager tabs</h3>
+        <div class="api-grid"></div>
+      </div>
+    </section>
+
+    <section class="diagram" id="manager-people">
+      <div class="section-head">
+        <h2>Detailed map · Manager people / places</h2>
+        <p>Includes dashed bottom-sheet flows · enhanced/manager-people.html</p>
+      </div>
+      <div class="frame-wrap" data-zoom-root>
+        <div class="frame-toolbar" aria-label="Diagram zoom">
+          <button type="button" class="zoom-btn" data-zoom-out title="Zoom out" aria-label="Zoom out">−</button>
+          <span class="zoom-label" data-zoom-label>100%</span>
+          <button type="button" class="zoom-btn" data-zoom-in title="Zoom in" aria-label="Zoom in">+</button>
+          <button type="button" class="zoom-fit" data-zoom-fit title="Fit to screen">Fit</button>
+        </div>
+        <div class="frame-viewport" data-zoom-viewport>
+          <div class="frame-scaler" data-zoom-scaler>
+            <iframe title="Manager people architecture" src="enhanced/manager-people.html?theme=dark&amp;embed=1" loading="lazy" referrerpolicy="same-origin"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="api-grid-wrap" data-catalog-keys="add-emp,add-loc,all-emp,all-loc,emp-profile,emp-att,emp-locs,emp-devices,emp-timing,loc-overview,loc-setup,loc-map,att-details,status-filter,loc-filter">
+        <h3>APIs &amp; sheets · manager people</h3>
+        <div class="api-grid"></div>
+      </div>
+    </section>
+
+    <section class="diagram" id="more">
+      <div class="section-head">
+        <h2>Detailed map · More / settings</h2>
+        <p>Includes dashed bottom-sheet flows · enhanced/more.html</p>
+      </div>
+      <div class="frame-wrap" data-zoom-root>
+        <div class="frame-toolbar" aria-label="Diagram zoom">
+          <button type="button" class="zoom-btn" data-zoom-out title="Zoom out" aria-label="Zoom out">−</button>
+          <span class="zoom-label" data-zoom-label>100%</span>
+          <button type="button" class="zoom-btn" data-zoom-in title="Zoom in" aria-label="Zoom in">+</button>
+          <button type="button" class="zoom-fit" data-zoom-fit title="Fit to screen">Fit</button>
+        </div>
+        <div class="frame-viewport" data-zoom-viewport>
+          <div class="frame-scaler" data-zoom-scaler>
+            <iframe title="More / settings architecture" src="enhanced/more.html?theme=dark&amp;embed=1" loading="lazy" referrerpolicy="same-origin"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="api-grid-wrap" data-catalog-keys="hub,account,offices,reminders,pickers,devices,terms,privacy,help,sent,logout">
+        <h3>APIs &amp; sheets · more map</h3>
+        <div class="api-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="screen-catalog.js"></script>
+  <script>
+    (function () {
+      var catalog = window.OBECNO_SCREEN_CATALOG || {};
+
+      function esc(s) {
+        return String(s == null ? "" : s)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function renderCard(id, data) {
+        var html = '<article class="api-card">';
+        html += '<div class="title">' + esc(data.title || id) + '</div>';
+        if (data.purpose) html += '<div class="purpose">' + esc(data.purpose) + '</div>';
+        var apis = data.apis || [];
+        var sheets = data.sheets || [];
+        if (!apis.length && !sheets.length) {
+          html += '<div class="empty">' + esc(data.notes || "No REST APIs on this screen.") + '</div>';
+        } else {
+          apis.forEach(function (a) {
+            html += '<div class="row"><span class="method">' + esc(a.method) + '</span><code>' +
+              esc(a.path) + '</code>' + (a.purpose ? ' — ' + esc(a.purpose) : '') + '</div>';
+          });
+          sheets.forEach(function (s) {
+            html += '<div class="row sheet">sheet · <strong>' + esc(s.name) + '</strong>' +
+              (s.purpose ? ' — ' + esc(s.purpose) : '') + '</div>';
+          });
+        }
+        html += '</article>';
+        return html;
+      }
+
+      document.querySelectorAll(".api-grid-wrap").forEach(function (wrap) {
+        var keys = (wrap.getAttribute("data-catalog-keys") || "").split(",").map(function (k) {
+          return k.trim();
+        }).filter(Boolean);
+        var grid = wrap.querySelector(".api-grid");
+        if (!grid) return;
+        var parts = [];
+        keys.forEach(function (key) {
+          if (catalog[key]) parts.push(renderCard(key, catalog[key]));
+        });
+        grid.innerHTML = parts.join("") || '<p class="empty" style="padding:0.75rem">No catalog entries.</p>';
+      });
+
+      // Highlight side-nav link for the section nearest the top
+      var links = Array.prototype.slice.call(document.querySelectorAll(".side-nav a[href^='#']"));
+      var sections = links.map(function (a) {
+        return document.querySelector(a.getAttribute("href"));
+      }).filter(Boolean);
+
+      function syncNav() {
+        var y = window.scrollY + 80;
+        var current = sections[0];
+        sections.forEach(function (sec) {
+          if (sec.offsetTop <= y) current = sec;
+        });
+        links.forEach(function (a) {
+          a.classList.toggle("is-active", current && a.getAttribute("href") === "#" + current.id);
+        });
+      }
+      window.addEventListener("scroll", syncNav, { passive: true });
+      syncNav();
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var MIN = 0.35, MAX = 2.5, STEP = 0.1;
+
+      function initZoom(root) {
+        var viewport = root.querySelector('[data-zoom-viewport]');
+        var scaler = root.querySelector('[data-zoom-scaler]');
+        var iframe = root.querySelector('iframe');
+        var label = root.querySelector('[data-zoom-label]');
+        var btnIn = root.querySelector('[data-zoom-in]');
+        var btnOut = root.querySelector('[data-zoom-out]');
+        var btnFit = root.querySelector('[data-zoom-fit]');
+        if (!viewport || !scaler || !iframe) return;
+
+        var scale = 1;
+        var baseW = 1400, baseH = 900;
+
+        function measure() {
+          baseW = iframe.offsetWidth || parseInt(getComputedStyle(iframe).width, 10) || 1400;
+          baseH = iframe.offsetHeight || parseInt(getComputedStyle(iframe).height, 10) || 900;
+        }
+
+        function apply() {
+          measure();
+          scaler.style.transform = 'scale(' + scale + ')';
+          // Spacer so overflow scroll matches scaled size
+          var spacer = root._zoomSpacer;
+          if (!spacer) {
+            spacer = document.createElement('div');
+            spacer.setAttribute('aria-hidden', 'true');
+            spacer.style.pointerEvents = 'none';
+            viewport.appendChild(spacer);
+            root._zoomSpacer = spacer;
+          }
+          spacer.style.width = Math.ceil(baseW * scale) + 'px';
+          spacer.style.height = Math.ceil(baseH * scale) + 'px';
+          if (label) label.textContent = Math.round(scale * 100) + '%';
+          if (btnOut) btnOut.disabled = scale <= MIN + 0.001;
+          if (btnIn) btnIn.disabled = scale >= MAX - 0.001;
+        }
+
+        function fit() {
+          measure();
+          var vw = viewport.clientWidth || 1;
+          var vh = viewport.clientHeight || 1;
+          var sx = vw / baseW;
+          var sy = vh / baseH;
+          scale = Math.max(MIN, Math.min(MAX, Math.min(sx, sy) * 0.98));
+          apply();
+          viewport.scrollLeft = 0;
+          viewport.scrollTop = 0;
+        }
+
+        if (btnIn) btnIn.addEventListener('click', function () {
+          scale = Math.min(MAX, +(scale + STEP).toFixed(2));
+          apply();
+        });
+        if (btnOut) btnOut.addEventListener('click', function () {
+          scale = Math.max(MIN, +(scale - STEP).toFixed(2));
+          apply();
+        });
+        if (btnFit) btnFit.addEventListener('click', fit);
+
+        viewport.addEventListener('wheel', function (e) {
+          if (!(e.ctrlKey || e.metaKey)) return;
+          e.preventDefault();
+          var delta = e.deltaY > 0 ? -STEP : STEP;
+          scale = Math.max(MIN, Math.min(MAX, +(scale + delta).toFixed(2)));
+          apply();
+        }, { passive: false });
+
+        iframe.addEventListener('load', function () { fit(); });
+        window.addEventListener('resize', function () {
+          // keep scale; user can Fit
+        });
+        requestAnimationFrame(function () { fit(); });
+      }
+
+      document.querySelectorAll('[data-zoom-root]').forEach(initZoom);
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "7ae75ca6-909d-4911-b0a5-d31ad9831363",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/hassan/Documents/obecno-archify/architecture-obecno-screens-20261006-213714/manager-screens/candidate.json",
+  "output": "/Users/hassan/Documents/obecno-archify/architecture-obecno-screens-20261006-213714/manager-screens/manager-screens.html",
+  "specification": {
+    "sha256": "d5c6b9ee19b2046939e5ac58df9bdde8a72bd4a485ac255e244c5f7df89052c7",
+    "bytes": 6287
+  },
+  "artifact": {
+    "sha256": "91c79f1ad213e3d5c76dd01bebac75cbf0a69e0001d9dbd17c4d8fe215dce2f2",
+    "bytes": 774384
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Obecno Manager Module Screens",
+    "subtitle": "Overview hub, directories, attendance, and employee sheets",
+    "output": "manager-screens.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Sulemanhassan899/obecno.git",
+      "provider": "github",
+      "revision": "674dbc537595bdbcaba8142674b813cf27ffe7d2"
+    },
+    "views": [
+      {
+        "id": "tabs",
+        "label": "Five tabs",
+        "focus": ["manager-nav", "overview", "clock", "attendance", "alerts", "more"],
+        "note": "Manager shell adds Overview before Clock"
+      },
+      {
+        "id": "directories",
+        "label": "People & places",
+        "focus": ["overview", "all-employees", "all-locations", "add-employee", "add-location"],
+        "note": "Overview actions open directories and create sheets"
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "manager-nav",
+      "type": "frontend",
+      "label": "Manager shell",
+      "sublabel": "/manager_nav",
+      "pos": [560, 300],
+      "size": [148, 64],
+      "tag": "bottom nav",
+      "sources": [{ "path": "lib/widgets/bottom_nav_bars/manager_nav.dart", "line": 63, "end_line": 69, "label": "tab screens" }]
+    },
+    {
+      "id": "overview",
+      "type": "frontend",
+      "label": "Overview",
+      "sublabel": "tab 0 · stats + actions",
+      "pos": [120, 120],
+      "size": [140, 64]
+    },
+    {
+      "id": "clock",
+      "type": "frontend",
+      "label": "Clock",
+      "sublabel": "tab 1 · manager punch",
+      "pos": [320, 120],
+      "size": [140, 64]
+    },
+    {
+      "id": "attendance",
+      "type": "frontend",
+      "label": "Team attendance",
+      "sublabel": "tab 2 · filters",
+      "pos": [520, 120],
+      "size": [148, 64]
+    },
+    {
+      "id": "alerts",
+      "type": "frontend",
+      "label": "Alerts",
+      "sublabel": "tab 3",
+      "pos": [740, 120],
+      "size": [128, 64]
+    },
+    {
+      "id": "more",
+      "type": "frontend",
+      "label": "More",
+      "sublabel": "tab 4 · profile hub",
+      "pos": [940, 120],
+      "size": [128, 64]
+    },
+    {
+      "id": "all-employees",
+      "type": "frontend",
+      "label": "All employees",
+      "sublabel": "/manager/employees",
+      "pos": [120, 460],
+      "size": [148, 64],
+      "sources": [{ "path": "lib/core/routes/app_routes.dart", "line": 67, "end_line": 69, "label": "route" }]
+    },
+    {
+      "id": "all-locations",
+      "type": "frontend",
+      "label": "All locations",
+      "sublabel": "/manager/locations",
+      "pos": [340, 460],
+      "size": [148, 64]
+    },
+    {
+      "id": "add-location",
+      "type": "frontend",
+      "label": "New location",
+      "sublabel": "NewLocationSheet",
+      "pos": [560, 460],
+      "size": [140, 62],
+      "tag": "sheet"
+    },
+    {
+      "id": "add-employee",
+      "type": "frontend",
+      "label": "Add employee",
+      "sublabel": "AddEmployeeSheet",
+      "pos": [760, 460],
+      "size": [140, 62],
+      "tag": "sheet"
+    },
+    {
+      "id": "att-details",
+      "type": "frontend",
+      "label": "Attendance details",
+      "sublabel": "ManagerAttendanceDetailsSheet",
+      "pos": [520, 580],
+      "size": [170, 62],
+      "tag": "sheet"
+    },
+    {
+      "id": "emp-profile",
+      "type": "frontend",
+      "label": "Employee profile",
+      "sublabel": "ManagerEmployeeProfileSheet",
+      "pos": [120, 580],
+      "size": [170, 62],
+      "tag": "sheet"
+    },
+    {
+      "id": "loc-setup",
+      "type": "frontend",
+      "label": "Location setup",
+      "sublabel": "map + schedule screens",
+      "pos": [340, 580],
+      "size": [148, 62]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Manager bottom navigation",
+      "wraps": ["manager-nav", "overview", "clock", "attendance", "alerts", "more"],
+      "pad": 18
+    },
+    {
+      "kind": "region",
+      "label": "Directories & create flows from Overview",
+      "wraps": ["all-employees", "all-locations", "add-location", "add-employee", "emp-profile", "loc-setup"],
+      "pad": 14
+    }
+  ],
+  "connections": [
+    { "id": "nav-ov", "from": "manager-nav", "to": "overview", "label": "Overview", "fromSide": "top", "toSide": "bottom" },
+    { "id": "nav-clock", "from": "manager-nav", "to": "clock", "label": "Clock", "fromSide": "top", "toSide": "bottom" },
+    { "id": "nav-att", "from": "manager-nav", "to": "attendance", "label": "Attendance", "fromSide": "top", "toSide": "bottom" },
+    { "id": "nav-alerts", "from": "manager-nav", "to": "alerts", "label": "Alerts", "fromSide": "top", "toSide": "bottom" },
+    { "id": "nav-more", "from": "manager-nav", "to": "more", "label": "More", "fromSide": "top", "toSide": "bottom" },
+    { "id": "ov-emps", "from": "overview", "to": "all-employees", "label": "All employees", "variant": "emphasis", "fromSide": "bottom", "toSide": "top" },
+    { "id": "ov-locs", "from": "overview", "to": "all-locations", "label": "All locations", "fromSide": "bottom", "toSide": "top" },
+    { "id": "ov-add-loc", "from": "overview", "to": "add-location", "label": "Add Location", "variant": "dashed" },
+    { "id": "ov-add-emp", "from": "overview", "to": "add-employee", "label": "Add Employee", "variant": "dashed" },
+    { "id": "att-details", "from": "attendance", "to": "att-details", "label": "row tap", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "emps-profile", "from": "all-employees", "to": "emp-profile", "label": "employee card", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "locs-setup", "from": "all-locations", "to": "loc-setup", "label": "open location", "fromSide": "bottom", "toSide": "top" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Manager home",
+      "items": [
+        "Overview is the default landing tab",
+        "Clock / Alerts / More are shared patterns with employees"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Where people & places live",
+      "items": [
+        "All Employees and All Locations are pushed screens",
+        "Add Employee / New Location open sheets from Overview",
+        "Employee profile sheet also opens from attendance details"
+      ]
+    }
+  ]
+}

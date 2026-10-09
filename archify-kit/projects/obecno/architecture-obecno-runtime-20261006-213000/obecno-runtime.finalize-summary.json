@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/hassan/Documents/obecno-archify/architecture-obecno-runtime-20261006-213000/candidate.json",
+    "sha256": "90a1f0fe6d1b8e8561ae4f0a7da1ca0cb59d0c6704acba5afc1641f0cece6eb0",
+    "bytes": 8293
+  },
+  "artifact": {
+    "path": "/Users/hassan/Documents/obecno-archify/architecture-obecno-runtime-20261006-213000/obecno-runtime.html"
+  },
+  "gates": {
+    "validate": "fail",
+    "deliver": "not-run",
+    "check": "not-run",
+    "browser-check": "not-run"
+  },
+  "failedStage": "validate",
+  "diagnostics": [
+    {
+      "code": "repository-evidence/git-command",
+      "severity": "error",
+      "message": "Evidence root \"/Users/hassan/Downloads/obecno\" is not a Git repository.",
+      "subject": {
+        "surface": "repository-evidence"
+      },
+      "evidence": {
+        "gitArgs": [
+          "rev-parse",
+          "--show-toplevel"
+        ],
+        "exitCode": 69
+      },
+      "supportedFixes": [
+        "use the intended local Git repository and verify its origin and revision"
+      ]
+    }
+  ],
+  "diagnosticSummary": {
+    "total": 1,
+    "shown": 1,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/hassan/Documents/obecno-archify/architecture-obecno-runtime-20261006-213000/obecno-runtime.finalize.json",
+    "summaryReceipt": "/Users/hassan/Documents/obecno-archify/architecture-obecno-runtime-20261006-213000/obecno-runtime.finalize-summary.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.0.1",
+    "availableVersion": "3.0.1",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-08T12:41:58.343Z",
+    "source": "network",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 602,
+  "nextAction": {
+    "action": "edit-in-place",
+    "candidate": "/Users/hassan/Documents/obecno-archify/architecture-obecno-runtime-20261006-213000/candidate.json",
+    "constraint": "Preserve all semantics and user-fixed geometry. Use references/architecture-layout-repair.md to choose a local repair or connected-scene reflow; edit the existing candidate.",
+    "then": "finalize-once"
+  }
+}

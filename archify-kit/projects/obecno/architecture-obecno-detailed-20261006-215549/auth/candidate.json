@@ -1,0 +1,315 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "1 \u00b7 Launch & Auth \u2014 screen by screen",
+    "subtitle": "Read left \u2192 right on the main path; demo/join above; blocked below",
+    "output": "auth.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Sulemanhassan899/obecno.git",
+      "provider": "github",
+      "revision": "674dbc537595bdbcaba8142674b813cf27ffe7d2"
+    }
+  },
+  "components": [
+    {
+      "id": "open",
+      "type": "external",
+      "label": "Open app",
+      "sublabel": "cold start",
+      "pos": [
+        40,
+        340
+      ],
+      "size": [
+        110,
+        60
+      ]
+    },
+    {
+      "id": "splash",
+      "type": "frontend",
+      "label": "Splash",
+      "sublabel": "/",
+      "pos": [
+        200,
+        340
+      ],
+      "size": [
+        110,
+        60
+      ],
+      "sources": [
+        {
+          "path": "lib/features/launch/splash/splash.dart",
+          "line": 122,
+          "end_line": 157,
+          "label": "resolve"
+        }
+      ]
+    },
+    {
+      "id": "onboarding",
+      "type": "frontend",
+      "label": "Onboarding",
+      "sublabel": "/onboarding",
+      "pos": [
+        390,
+        340
+      ],
+      "size": [
+        120,
+        60
+      ]
+    },
+    {
+      "id": "login",
+      "type": "frontend",
+      "label": "Login email",
+      "sublabel": "/login",
+      "pos": [
+        580,
+        340
+      ],
+      "size": [
+        120,
+        60
+      ]
+    },
+    {
+      "id": "password",
+      "type": "frontend",
+      "label": "Password",
+      "sublabel": "/login/password",
+      "pos": [
+        770,
+        340
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "permissions",
+      "type": "security",
+      "label": "Permissions",
+      "sublabel": "/enable_permissions",
+      "pos": [
+        960,
+        340
+      ],
+      "size": [
+        140,
+        60
+      ]
+    },
+    {
+      "id": "employee",
+      "type": "frontend",
+      "label": "Employee home",
+      "sublabel": "/employee_nav",
+      "pos": [
+        960,
+        160
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "tag": "4 tabs"
+    },
+    {
+      "id": "manager",
+      "type": "frontend",
+      "label": "Manager home",
+      "sublabel": "/manager_nav",
+      "pos": [
+        960,
+        520
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "tag": "5 tabs"
+    },
+    {
+      "id": "demo",
+      "type": "frontend",
+      "label": "Book demo",
+      "sublabel": "/bookdemo",
+      "pos": [
+        390,
+        140
+      ],
+      "size": [
+        120,
+        56
+      ]
+    },
+    {
+      "id": "forgot",
+      "type": "frontend",
+      "label": "Forgot password",
+      "sublabel": "sheet",
+      "pos": [
+        770,
+        140
+      ],
+      "size": [
+        130,
+        56
+      ],
+      "tag": "sheet"
+    },
+    {
+      "id": "invite",
+      "type": "external",
+      "label": "Invite link",
+      "sublabel": "obecno://",
+      "pos": [
+        40,
+        140
+      ],
+      "size": [
+        110,
+        56
+      ]
+    },
+    {
+      "id": "joined",
+      "type": "frontend",
+      "label": "You've joined",
+      "sublabel": "/youve_joined",
+      "pos": [
+        200,
+        140
+      ],
+      "size": [
+        120,
+        56
+      ]
+    },
+    {
+      "id": "blocked",
+      "type": "security",
+      "label": "Device blocked",
+      "sublabel": "/device_blocked",
+      "pos": [
+        770,
+        520
+      ],
+      "size": [
+        140,
+        56
+      ]
+    }
+  ],
+  "boundaries": [],
+  "connections": [
+    {
+      "id": "e1",
+      "from": "open",
+      "to": "splash",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e2",
+      "from": "splash",
+      "to": "onboarding",
+      "label": "first launch"
+    },
+    {
+      "id": "e3",
+      "from": "onboarding",
+      "to": "login",
+      "label": "Sign in"
+    },
+    {
+      "id": "e4",
+      "from": "login",
+      "to": "password"
+    },
+    {
+      "id": "e5",
+      "from": "password",
+      "to": "permissions",
+      "label": "success"
+    },
+    {
+      "id": "e6",
+      "from": "permissions",
+      "to": "employee",
+      "label": "employee",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "e7",
+      "from": "permissions",
+      "to": "manager",
+      "label": "manager",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "e8",
+      "from": "onboarding",
+      "to": "demo",
+      "label": "demo",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "e9",
+      "from": "password",
+      "to": "forgot",
+      "label": "forgot?",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "e10",
+      "from": "invite",
+      "to": "joined",
+      "variant": "security"
+    },
+    {
+      "id": "e11",
+      "from": "joined",
+      "to": "login",
+      "label": "continue",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "e12",
+      "from": "permissions",
+      "to": "blocked",
+      "label": "rejected",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Read left \u2192 right",
+      "items": [
+        "Splash \u2192 Onboarding \u2192 Login \u2192 Password \u2192 Permissions \u2192 role home",
+        "Splash can skip ahead when a session already exists"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Side paths",
+      "items": [
+        "Invite links enter at You've Joined",
+        "Device blocked stops the flow until approved"
+      ]
+    }
+  ]
+}

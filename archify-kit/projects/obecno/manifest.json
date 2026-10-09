@@ -1,0 +1,10 @@
+{
+  "project_name": "Obecno",
+  "title": "Obecno Live Guide",
+  "architecture_entry": "architecture-obecno-api-guide-20261006-222000/obecno-api-full-guide.html",
+  "qa_root_relative": "qa",
+  "default_tab": "system",
+  "workspace_paths": [
+    "/Users/hassan/Downloads/obecno"
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Obecno More / Settings Screens",
+    "subtitle": "Shared profile hub used by employee and manager shells",
+    "output": "more-screens.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Sulemanhassan899/obecno.git",
+      "provider": "github",
+      "revision": "674dbc537595bdbcaba8142674b813cf27ffe7d2"
+    },
+    "views": [
+      {
+        "id": "hub",
+        "label": "Profile hub",
+        "focus": ["more-hub", "account", "offices", "reminders", "devices"],
+        "note": "More tab is ProfileSettingsScreen for both roles"
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "more-hub",
+      "type": "frontend",
+      "label": "More hub",
+      "sublabel": "ProfileSettingsScreen",
+      "pos": [520, 320],
+      "size": [160, 64],
+      "sources": [{ "path": "lib/features/more/presentation/screens/profile_settings_screen.dart", "line": 31, "end_line": 42, "label": "hub" }]
+    },
+    {
+      "id": "account",
+      "type": "frontend",
+      "label": "Account info",
+      "sublabel": "AccountSetting",
+      "pos": [80, 120],
+      "size": [140, 62]
+    },
+    {
+      "id": "offices",
+      "type": "frontend",
+      "label": "Offices & locations",
+      "sublabel": "OfficeLocation",
+      "pos": [280, 120],
+      "size": [156, 62]
+    },
+    {
+      "id": "reminders",
+      "type": "frontend",
+      "label": "My reminders",
+      "sublabel": "AttendanceRemindersScreen",
+      "pos": [500, 120],
+      "size": [168, 62]
+    },
+    {
+      "id": "devices",
+      "type": "frontend",
+      "label": "Linked devices",
+      "sublabel": "LinkedDevices",
+      "pos": [740, 120],
+      "size": [140, 62]
+    },
+    {
+      "id": "password",
+      "type": "security",
+      "label": "Change password",
+      "sublabel": "ChangePassword",
+      "pos": [940, 120],
+      "size": [148, 62]
+    },
+    {
+      "id": "reminder-pickers",
+      "type": "frontend",
+      "label": "Reminder pickers",
+      "sublabel": "time / duration sheets",
+      "pos": [760, 240],
+      "size": [168, 58],
+      "tag": "sheet"
+    },
+    {
+      "id": "terms",
+      "type": "frontend",
+      "label": "Terms of use",
+      "sublabel": "TermsScreen",
+      "pos": [180, 520],
+      "size": [140, 62]
+    },
+    {
+      "id": "privacy",
+      "type": "frontend",
+      "label": "Privacy policy",
+      "sublabel": "PolicyScreen",
+      "pos": [380, 520],
+      "size": [140, 62]
+    },
+    {
+      "id": "help",
+      "type": "frontend",
+      "label": "Help & feedback",
+      "sublabel": "HelpFeedbackScreen",
+      "pos": [580, 520],
+      "size": [148, 62]
+    },
+    {
+      "id": "help-sent",
+      "type": "frontend",
+      "label": "Ticket sent",
+      "sublabel": "HelpFeedbackSentScreen",
+      "pos": [800, 520],
+      "size": [140, 62]
+    },
+    {
+      "id": "logout",
+      "type": "security",
+      "label": "Logout",
+      "sublabel": "→ /onboarding",
+      "pos": [80, 640],
+      "size": [140, 62]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Settings & account",
+      "wraps": ["more-hub", "account", "offices", "reminders", "devices", "password", "reminder-pickers"],
+      "pad": 16
+    },
+    {
+      "kind": "region",
+      "label": "Legal, support, session end",
+      "wraps": ["terms", "privacy", "help", "help-sent", "logout"],
+      "pad": 14
+    }
+  ],
+  "connections": [
+    { "id": "hub-account", "from": "more-hub", "to": "account", "label": "Account Info", "fromSide": "top", "toSide": "bottom" },
+    { "id": "hub-offices", "from": "more-hub", "to": "offices", "label": "Offices", "fromSide": "top", "toSide": "bottom" },
+    { "id": "hub-reminders", "from": "more-hub", "to": "reminders", "label": "My Reminders", "fromSide": "top", "toSide": "bottom" },
+    { "id": "hub-devices", "from": "more-hub", "to": "devices", "label": "Linked Devices", "fromSide": "top", "toSide": "bottom" },
+    { "id": "hub-password", "from": "more-hub", "to": "password", "label": "Change password", "fromSide": "top", "toSide": "bottom" },
+    { "id": "reminders-pickers", "from": "reminders", "to": "reminder-pickers", "label": "edit times", "variant": "dashed" },
+    { "id": "hub-terms", "from": "more-hub", "to": "terms", "fromSide": "bottom", "toSide": "top" },
+    { "id": "hub-privacy", "from": "more-hub", "to": "privacy", "fromSide": "bottom", "toSide": "top" },
+    { "id": "hub-help", "from": "more-hub", "to": "help", "fromSide": "bottom", "toSide": "top" },
+    { "id": "help-sent", "from": "help", "to": "help-sent", "label": "submit", "variant": "dashed" },
+    { "id": "hub-logout", "from": "more-hub", "to": "logout", "label": "confirm dialog", "variant": "security", "via": [[480, 352], [40, 352], [40, 671]] }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "One More tab, both roles",
+      "items": [
+        "Employee and manager shells both embed ProfileSettingsScreen",
+        "Pushes open dedicated screens; reminder editors use sheets"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Session exit",
+      "items": [
+        "Logout confirms, clears auth, then GoRouter sends you to /onboarding"
+      ]
+    }
+  ]
+}

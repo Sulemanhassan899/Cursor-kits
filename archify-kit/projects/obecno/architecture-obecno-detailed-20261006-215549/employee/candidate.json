@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "2 · Employee — tabs & bottom sheets",
+    "subtitle": "Tabs → screens → dashed sheet overlays (with sheet-to-sheet flow)",
+    "output": "employee.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Sulemanhassan899/obecno.git",
+      "provider": "github",
+      "revision": "674dbc537595bdbcaba8142674b813cf27ffe7d2"
+    }
+  },
+  "components": [
+    { "id": "shell", "type": "frontend", "label": "Employee shell", "sublabel": "/employee_nav", "pos": [480, 260], "size": [150, 60], "tag": "bottom nav", "sources": [{ "path": "lib/widgets/bottom_nav_bars/employee_nav.dart", "line": 44, "end_line": 50, "label": "tabs" }] },
+    { "id": "clock", "type": "frontend", "label": "Clock", "sublabel": "tab 0", "pos": [60, 70], "size": [130, 56] },
+    { "id": "attendance", "type": "frontend", "label": "Attendance", "sublabel": "tab 1", "pos": [280, 70], "size": [130, 56] },
+    { "id": "alerts", "type": "frontend", "label": "Alerts", "sublabel": "tab 2", "pos": [500, 70], "size": [130, 56] },
+    { "id": "more", "type": "frontend", "label": "More", "sublabel": "tab 3 → settings", "pos": [720, 70], "size": [140, 56] },
+    { "id": "loc-sheet", "type": "frontend", "label": "Location picker", "sublabel": "LocationBottomSheet", "pos": [40, 480], "size": [140, 56], "tag": "sheet", "sources": [{ "path": "lib/features/clock/presentation/screens/clock_screen.dart", "line": 461, "end_line": 468, "label": "sheet" }] },
+    { "id": "clock-details", "type": "frontend", "label": "Clock punch detail", "sublabel": "ClockAttendanceDetailsSheet", "pos": [40, 600], "size": [160, 56], "tag": "sheet" },
+    { "id": "day-sheet", "type": "frontend", "label": "Day details", "sublabel": "AttendanceDetailsSheet", "pos": [240, 480], "size": [150, 56], "tag": "sheet" },
+    { "id": "add-sheet", "type": "frontend", "label": "Add / edit punch", "sublabel": "AddAttendanceBottomSheet", "pos": [520, 480], "size": [160, 56], "tag": "sheet" },
+    { "id": "holiday", "type": "frontend", "label": "Holiday detail", "sublabel": "HolidayBottomSheet", "pos": [720, 480], "size": [140, 56], "tag": "sheet" },
+    { "id": "month", "type": "frontend", "label": "Month picker", "sublabel": "MonthYearPickerSheet", "pos": [900, 480], "size": [140, 56], "tag": "sheet" },
+    { "id": "edit-history", "type": "frontend", "label": "Edit history", "sublabel": "attendance edit section", "pos": [240, 600], "size": [150, 56], "tag": "sheet" }
+  ],
+  "boundaries": [],
+  "connections": [
+    { "id": "c1", "from": "shell", "to": "clock", "label": "Clock", "fromSide": "top", "toSide": "bottom" },
+    { "id": "c2", "from": "shell", "to": "attendance", "label": "Attendance", "fromSide": "top", "toSide": "bottom" },
+    { "id": "c3", "from": "shell", "to": "alerts", "label": "Alerts", "fromSide": "top", "toSide": "bottom" },
+    { "id": "c4", "from": "shell", "to": "more", "label": "More", "fromSide": "top", "toSide": "bottom" },
+    { "id": "c5", "from": "clock", "to": "loc-sheet", "label": "change location", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "c5b", "from": "clock", "to": "clock-details", "label": "punch card", "variant": "dashed" },
+    { "id": "c6", "from": "attendance", "to": "day-sheet", "label": "day tap", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "c7", "from": "attendance", "to": "add-sheet", "label": "add/edit", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "c8", "from": "attendance", "to": "holiday", "label": "holiday", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "c9", "from": "attendance", "to": "month", "label": "month", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "c10", "from": "day-sheet", "to": "add-sheet", "label": "edit", "variant": "dashed" },
+    { "id": "c11", "from": "day-sheet", "to": "edit-history", "label": "history", "variant": "dashed", "fromSide": "bottom", "toSide": "top" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "How to read", "items": ["Solid lines = tab navigation", "Dashed lines = bottom sheets / overlays"] },
+    { "dot": "emerald", "title": "Sheet chains", "items": ["Day details can open Add/edit or Edit history", "Clock opens Location picker or punch detail"] }
+  ]
+}

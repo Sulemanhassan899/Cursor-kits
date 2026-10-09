@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "4 · More / Settings — screens & sheets",
+    "subtitle": "Hub → screens (solid) → bottom sheets (dashed)",
+    "output": "more.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Sulemanhassan899/obecno.git",
+      "provider": "github",
+      "revision": "674dbc537595bdbcaba8142674b813cf27ffe7d2"
+    }
+  },
+  "components": [
+    { "id": "hub", "type": "frontend", "label": "More hub", "sublabel": "ProfileSettingsScreen", "pos": [460, 360], "size": [160, 60], "sources": [{ "path": "lib/features/more/presentation/screens/profile_settings_screen.dart", "line": 31, "end_line": 42, "label": "hub" }] },
+    { "id": "account", "type": "frontend", "label": "Account info", "sublabel": "AccountSetting", "pos": [40, 60], "size": [130, 52] },
+    { "id": "offices", "type": "frontend", "label": "Offices", "sublabel": "OfficeLocation", "pos": [230, 60], "size": [130, 52] },
+    { "id": "reminders", "type": "frontend", "label": "My reminders", "sublabel": "AttendanceRemindersScreen", "pos": [430, 60], "size": [150, 52] },
+    { "id": "devices", "type": "frontend", "label": "Linked devices", "sublabel": "LinkedDevices", "pos": [650, 60], "size": [140, 52] },
+    { "id": "password", "type": "security", "label": "Change password", "sublabel": "ChangePassword", "pos": [860, 60], "size": [150, 52] },
+    { "id": "edit-field", "type": "frontend", "label": "Edit field sheet", "sublabel": "EditAccountFieldSheet", "pos": [40, 200], "size": [140, 52], "tag": "sheet" },
+    { "id": "time-picker", "type": "frontend", "label": "Time picker", "sublabel": "ReminderTimePickerSheet", "pos": [400, 200], "size": [150, 52], "tag": "sheet" },
+    { "id": "duration-picker", "type": "frontend", "label": "Duration picker", "sublabel": "ReminderDurationPickerSheet", "pos": [600, 200], "size": [160, 52], "tag": "sheet" },
+    { "id": "terms", "type": "frontend", "label": "Terms", "sublabel": "TermsScreen", "pos": [200, 560], "size": [120, 52] },
+    { "id": "privacy", "type": "frontend", "label": "Privacy", "sublabel": "PolicyScreen", "pos": [370, 560], "size": [120, 52] },
+    { "id": "help", "type": "frontend", "label": "Help & feedback", "sublabel": "HelpFeedbackScreen", "pos": [540, 560], "size": [150, 52] },
+    { "id": "sent", "type": "frontend", "label": "Ticket sent", "sublabel": "sent screen", "pos": [760, 560], "size": [130, 52] },
+    { "id": "logout", "type": "security", "label": "Logout", "sublabel": "→ /onboarding", "pos": [40, 360], "size": [120, 52] }
+  ],
+  "boundaries": [],
+  "connections": [
+    { "id": "h1", "from": "hub", "to": "account", "label": "Account" },
+    { "id": "h2", "from": "hub", "to": "offices", "label": "Offices" },
+    { "id": "h3", "from": "hub", "to": "reminders", "label": "Reminders" },
+    { "id": "h4", "from": "hub", "to": "devices", "label": "Devices" },
+    { "id": "h5", "from": "hub", "to": "password", "label": "Password" },
+    { "id": "s1", "from": "account", "to": "edit-field", "label": "edit", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "s2", "from": "reminders", "to": "time-picker", "label": "time", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "s3", "from": "reminders", "to": "duration-picker", "label": "duration", "variant": "dashed" },
+    { "id": "h7", "from": "hub", "to": "terms", "fromSide": "bottom", "toSide": "top" },
+    { "id": "h8", "from": "hub", "to": "privacy", "fromSide": "bottom", "toSide": "top" },
+    { "id": "h9", "from": "hub", "to": "help", "fromSide": "bottom", "toSide": "top" },
+    { "id": "h10", "from": "help", "to": "sent", "label": "submit", "variant": "dashed" },
+    { "id": "h11", "from": "hub", "to": "logout", "label": "confirm", "variant": "security", "fromSide": "left", "toSide": "right" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Solid vs dashed", "items": ["Solid = pushed screens from More hub", "Dashed = bottom sheets"] },
+    { "dot": "emerald", "title": "Sheet flows", "items": ["Account → Edit field sheet", "Reminders → Time + Duration pickers"] }
+  ]
+}

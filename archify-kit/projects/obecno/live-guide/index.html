@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Guide</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <h1>Live Guide</h1>
+          <p class="subtitle">Architecture · QA — live from disk</p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <span id="live-status" class="pill pill-idle" title="Live update status">connecting…</span>
+        <span id="last-refresh" class="meta-time">—</span>
+      </div>
+    </header>
+
+    <nav class="tabs" role="tablist" aria-label="Live guide tabs">
+      <button
+        type="button"
+        class="tab"
+        role="tab"
+        id="tab-system"
+        aria-selected="false"
+        aria-controls="panel-system"
+        data-tab="system"
+      >
+        Current system
+      </button>
+      <button
+        type="button"
+        class="tab is-active"
+        role="tab"
+        id="tab-qa"
+        aria-selected="true"
+        aria-controls="panel-qa"
+        data-tab="qa"
+      >
+        QA Agent
+      </button>
+    </nav>
+
+    <main class="panels">
+      <!-- Tab 1: embed existing full architecture guide (diagrams unchanged) -->
+      <section
+        id="panel-system"
+        class="panel"
+        role="tabpanel"
+        aria-labelledby="tab-system"
+        hidden
+      >
+        <iframe
+          id="system-frame"
+          class="system-frame"
+          title="Current system architecture guide"
+          src="../architecture-obecno-api-guide-20261006-222000/obecno-api-full-guide.html"
+        ></iframe>
+      </section>
+
+      <!-- Tab 2: QA scenarios + results -->
+      <section
+        id="panel-qa"
+        class="panel is-active"
+        role="tabpanel"
+        aria-labelledby="tab-qa"
+      >
+        <div class="qa-layout">
+          <aside class="qa-sidebar">
+            <div class="card">
+              <h2>Latest run</h2>
+              <div id="qa-summary" class="summary-block">
+                <p class="empty">No results yet. When a QA run writes under <code>qa/results/</code>, counts appear here.</p>
+              </div>
+            </div>
+            <div class="card">
+              <h2>Runs</h2>
+              <ul id="qa-runs" class="run-list">
+                <li class="empty">Waiting for runs…</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h2>Excel reports</h2>
+              <p class="card-hint">Sheet6-style workbooks for this run. Download to open in Excel / Google Sheets.</p>
+              <div id="qa-excel" class="excel-list">
+                <p class="empty">No Excel report yet for this run.</p>
+              </div>
+            </div>
+          </aside>
+
+          <div class="qa-main">
+            <div class="card excel-viewer-card" id="excel-viewer-card">
+              <div class="excel-viewer-head">
+                <div class="excel-banner-text">
+                  <h2>Excel sheet</h2>
+                  <p id="excel-banner-sub">Sheet6 preview for the selected run.</p>
+                </div>
+                <div id="excel-banner-actions" class="excel-banner-actions"></div>
+              </div>
+              <div id="excel-sheet-tabs" class="excel-sheet-tabs" hidden></div>
+              <div id="excel-table-wrap" class="excel-table-wrap">
+                <p class="empty">Select a run to preview its Excel report here.</p>
+              </div>
+              <p id="excel-action-toast" class="excel-action-toast" hidden></p>
+            </div>
+            <div class="card card-grow">
+              <div class="card-head">
+                <h2>Test scenarios</h2>
+                <div id="scenario-stats" class="stat-row"></div>
+              </div>
+              <div id="scenario-filters" class="filters" hidden></div>
+              <div id="scenario-list" class="scenario-list">
+                <p class="empty">Loading catalog from <code>qa/catalog/scenarios.json</code>…</p>
+              </div>
+            </div>
+            <div class="card">
+              <h2>Bug notes</h2>
+              <div id="qa-bugs" class="bug-list">
+                <p class="empty">No bug notes in the latest summary.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Status report drawer -->
+  <div id="status-drawer" class="drawer" hidden>
+    <div class="drawer-backdrop" data-close-drawer></div>
+    <aside class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+      <header class="drawer-head">
+        <div>
+          <h2 id="drawer-title">Status report</h2>
+          <p id="drawer-sub" class="drawer-sub"></p>
+        </div>
+        <button type="button" class="drawer-close" data-close-drawer aria-label="Close">×</button>
+      </header>
+      <div id="drawer-body" class="drawer-body"></div>
+    </aside>
+  </div>
+
+  <script type="module">
+  import { applyManifest } from "./manifest-loader.js";
+  const info = await applyManifest();
+  // app.js reads hash/query; set default tab hint
+  if (info?.defaultTab && !location.hash && !new URLSearchParams(location.search).get("tab")) {
+    history.replaceState(null, "", `?tab=${info.defaultTab}#${info.defaultTab}`);
+  }
+</script>
+<script src="./app.js" type="module"></script>
+</body>
+</html>

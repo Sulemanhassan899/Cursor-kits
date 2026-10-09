@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Obecno Mobile Runtime",
+    "subtitle": "Flutter client, native reminders, and REST backend",
+    "output": "obecno-runtime.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Sulemanhassan899/obecno.git",
+      "provider": "github",
+      "revision": "674dbc537595bdbcaba8142674b813cf27ffe7d2"
+    }
+  },
+  "components": [
+    {
+      "id": "users",
+      "type": "external",
+      "label": "People",
+      "sublabel": "Managers & employees",
+      "pos": [40, 300],
+      "size": [128, 64]
+    },
+    {
+      "id": "flutter-shell",
+      "type": "frontend",
+      "label": "Flutter shell",
+      "sublabel": "MyApp + providers",
+      "pos": [272, 300],
+      "size": [140, 64],
+      "sources": [{ "path": "lib/main.dart", "line": 44, "end_line": 61, "label": "main()" }]
+    },
+    {
+      "id": "router",
+      "type": "frontend",
+      "label": "GoRouter",
+      "sublabel": "Splash → role nav",
+      "pos": [452, 300],
+      "size": [132, 64],
+      "sources": [{ "path": "lib/core/routes/app_routes.dart", "line": 23, "end_line": 65, "label": "routes" }]
+    },
+    {
+      "id": "employee-ui",
+      "type": "frontend",
+      "label": "Employee UI",
+      "sublabel": "Clock & attendance",
+      "pos": [632, 175],
+      "size": [136, 62]
+    },
+    {
+      "id": "manager-ui",
+      "type": "frontend",
+      "label": "Manager UI",
+      "sublabel": "Overview & teams",
+      "pos": [632, 425],
+      "size": [136, 62]
+    },
+    {
+      "id": "bindings",
+      "type": "backend",
+      "label": "AppBindings",
+      "sublabel": "DI & services",
+      "pos": [812, 300],
+      "size": [136, 64],
+      "sources": [{ "path": "lib/core/binding/app_binding.dart", "line": 65, "end_line": 72, "label": "wiring" }]
+    },
+    {
+      "id": "api-client",
+      "type": "backend",
+      "label": "ApiClient",
+      "sublabel": "HTTP + retry",
+      "pos": [992, 300],
+      "size": [132, 64],
+      "sources": [{ "path": "lib/core/api/api_client.dart", "line": 14, "end_line": 32, "label": "client" }]
+    },
+    {
+      "id": "obecno-api",
+      "type": "external",
+      "label": "Obecno REST API",
+      "sublabel": "versioned JSON",
+      "pos": [1198, 300],
+      "size": [140, 64]
+    },
+    {
+      "id": "token-session",
+      "type": "security",
+      "label": "Token & session",
+      "sublabel": "auth headers",
+      "pos": [992, 125],
+      "size": [132, 62],
+      "sources": [{ "path": "lib/core/api/api_client.dart", "line": 29, "end_line": 32, "label": "401 handler" }]
+    },
+    {
+      "id": "local-store",
+      "type": "database",
+      "label": "On-device SQLite",
+      "sublabel": "queue + attendance cache",
+      "pos": [812, 125],
+      "size": [148, 62],
+      "sources": [{ "path": "lib/shared/location/service/local_queue_service.dart", "line": 7, "end_line": 40, "label": "queue DB" }]
+    },
+    {
+      "id": "sync",
+      "type": "backend",
+      "label": "SyncService",
+      "sublabel": "offline → online",
+      "pos": [812, 580],
+      "size": [136, 62],
+      "sources": [{ "path": "lib/features/clock/services/sync_service.dart", "line": 14, "end_line": 45, "label": "sync loop" }]
+    },
+    {
+      "id": "location",
+      "type": "backend",
+      "label": "Location layer",
+      "sublabel": "GPS & geofence",
+      "pos": [632, 520],
+      "size": [136, 62]
+    },
+    {
+      "id": "native-platform",
+      "type": "backend",
+      "label": "Native platform",
+      "sublabel": "Kotlin / Swift bridges",
+      "pos": [452, 495],
+      "size": [148, 62],
+      "sources": [{ "path": "android/app/src/main/kotlin/com/example/obecno/MainActivity.kt", "line": 8, "end_line": 14, "label": "reminder channel" }]
+    },
+    {
+      "id": "os-notifications",
+      "type": "external",
+      "label": "OS notifications",
+      "sublabel": "reminders & alerts",
+      "pos": [272, 495],
+      "size": [140, 62],
+      "sources": [{ "path": "lib/main.dart", "line": 55, "end_line": 58, "label": "reminder tap" }]
+    },
+    {
+      "id": "deep-links",
+      "type": "external",
+      "label": "Invite deep links",
+      "sublabel": "obecno:// join",
+      "pos": [272, 125],
+      "size": [140, 62],
+      "sources": [{ "path": "lib/features/join/services/join_deep_link_service.dart", "line": 11, "end_line": 36, "label": "AppLinks" }]
+    },
+    {
+      "id": "google-maps",
+      "type": "external",
+      "label": "Google Maps",
+      "sublabel": "location picker",
+      "pos": [1198, 125],
+      "size": [140, 62]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Mobile device (Flutter + native)",
+      "wraps": [
+        "flutter-shell",
+        "router",
+        "employee-ui",
+        "manager-ui",
+        "bindings",
+        "api-client",
+        "token-session",
+        "local-store",
+        "sync",
+        "location",
+        "native-platform",
+        "os-notifications",
+        "deep-links"
+      ],
+      "pad": 18
+    },
+    {
+      "kind": "security-group",
+      "label": "Authenticated API calls",
+      "wraps": ["api-client", "token-session"],
+      "pad": 12
+    }
+  ],
+  "connections": [
+    { "id": "users-to-shell", "from": "users", "to": "flutter-shell", "label": "tap / navigate", "variant": "emphasis" },
+    { "id": "shell-to-router", "from": "flutter-shell", "to": "router" },
+    { "id": "router-employee", "from": "router", "to": "employee-ui", "label": "/employee_nav", "fromSide": "top", "toSide": "left" },
+    { "id": "router-manager", "from": "router", "to": "manager-ui", "label": "/manager_nav", "fromSide": "bottom", "toSide": "left" },
+    { "id": "employee-bindings", "from": "employee-ui", "to": "bindings" },
+    { "id": "manager-bindings", "from": "manager-ui", "to": "bindings" },
+    { "id": "bindings-api", "from": "bindings", "to": "api-client", "variant": "emphasis" },
+    { "id": "api-backend", "from": "api-client", "to": "obecno-api", "label": "HTTPS JSON", "variant": "emphasis" },
+    { "id": "token-to-api", "from": "token-session", "to": "api-client", "label": "Bearer token", "variant": "security", "fromSide": "bottom", "toSide": "top" },
+    { "id": "bindings-local", "from": "bindings", "to": "local-store", "label": "read / write", "fromSide": "top", "toSide": "bottom" },
+    { "id": "sync-local", "from": "sync", "to": "local-store", "label": "drain queue", "variant": "dashed", "fromSide": "top", "toSide": "bottom" },
+    { "id": "sync-api", "from": "sync", "to": "api-client", "label": "upload punches", "variant": "dashed" },
+    { "id": "location-bindings", "from": "location", "to": "bindings", "label": "LocationProvider", "variant": "dashed" },
+    { "id": "native-reminders", "from": "native-platform", "to": "os-notifications", "label": "alarms", "variant": "dashed" },
+    { "id": "shell-native", "from": "flutter-shell", "to": "native-platform", "label": "MethodChannel", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "deeplink-shell", "from": "deep-links", "to": "flutter-shell", "label": "cold / warm start", "variant": "security", "fromSide": "bottom", "toSide": "top" },
+    { "id": "employee-maps", "from": "employee-ui", "to": "google-maps", "label": "map picker", "variant": "dashed", "fromSide": "top", "toSide": "bottom" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Primary journey",
+      "items": [
+        "User opens Obecno → GoRouter picks employee or manager shell",
+        "AppBindings resolves repositories and ApiClient for that session",
+        "Attendance and manager data flow over HTTPS to the Obecno API"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Offline & location",
+      "items": [
+        "Punches can queue in SQLite when connectivity is poor",
+        "SyncService retries uploads when the network returns",
+        "Location services and native alarms support reminders outside the UI"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Trust boundaries",
+      "items": [
+        "Tokens attach inside ApiClient before calls leave the device",
+        "Join invite links enter through AppLinks, not the REST API",
+        "Backend authority lives off-device; the app is a smart client"
+      ]
+    }
+  ]
+}

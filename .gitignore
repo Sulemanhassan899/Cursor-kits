@@ -1,0 +1,8 @@
+.DS_Store
+**/credentials.local.yaml
+**/node_modules/
+**/registry.local.yaml
+**/.last-live-url
+*.log
+.gh-pages-tmp/
+_site_build/

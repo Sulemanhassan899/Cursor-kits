@@ -1,0 +1,2 @@
+# Shared template — machine paths go in registry.local.yaml (gitignored)
+projects: {}

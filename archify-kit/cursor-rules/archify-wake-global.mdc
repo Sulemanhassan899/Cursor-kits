@@ -1,0 +1,29 @@
+---
+description: Global Archify wake — works in every Cursor project
+alwaysApply: true
+---
+
+# Global Archify wake (all projects)
+
+Kit home: `~/Documents/Archify-kit/`  
+Read `~/Documents/Archify-kit/WAKE.md` and `~/Documents/Archify-kit/RULES.md`.
+
+## Resolve ARCHIFY_ROOT first
+
+```bash
+ARCHIFY_ROOT=$(bash ~/Documents/Archify-kit/tools/resolve-archify-root.sh "$(pwd)")
+echo "$ARCHIFY_ROOT"
+```
+
+## Wake
+
+> Make the archify of this project
+
+1. Init if needed (`init-project-archify.sh`)
+2. Orchestrator: `$ARCHIFY_ROOT` agents or kit `agents/00-orchestrator.md`
+3. **Decide agent count automatically** via `plan-archify-agents.sh` (do not ask the user)
+4. Generate diagrams under `$ARCHIFY_ROOT` only — never edit product source for Archify
+5. **Always** open Live Guide when done:
+   `bash ~/Documents/Archify-kit/tools/ensure-live-guide.sh "$ARCHIFY_ROOT" system`
+
+Optional: `hint: quick` or `hint: deep` in the same message.

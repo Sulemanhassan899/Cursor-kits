@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "1a640977-a218-49fd-98a2-3a4883d360d8",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/hassan/Documents/obecno-archify/architecture-obecno-detailed-20261006-215549/manager-tabs/candidate.json",
+  "output": "/Users/hassan/Documents/obecno-archify/architecture-obecno-detailed-20261006-215549/manager-tabs/manager-tabs.html",
+  "specification": {
+    "sha256": "fb3c19d84fadd0ba507665747bf2663bd323cd3a9c8397730c598219e0965e7d",
+    "bytes": 2322
+  },
+  "artifact": {
+    "sha256": "ba4e9b2aedd1f5e47e03d1189d0fddf50ff7278375c9840133fbd5f7fedefc8e",
+    "bytes": 754000
+  }
+}

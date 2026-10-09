@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "3a · Manager — bottom tabs",
+    "subtitle": "Five tabs · Overview is the default landing screen",
+    "output": "manager-tabs.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Sulemanhassan899/obecno.git",
+      "provider": "github",
+      "revision": "674dbc537595bdbcaba8142674b813cf27ffe7d2"
+    }
+  },
+  "components": [
+    { "id": "shell", "type": "frontend", "label": "Manager shell", "sublabel": "/manager_nav", "pos": [480, 360], "size": [150, 64], "tag": "bottom nav", "sources": [{ "path": "lib/widgets/bottom_nav_bars/manager_nav.dart", "line": 63, "end_line": 69, "label": "tabs" }] },
+    { "id": "overview", "type": "frontend", "label": "Overview", "sublabel": "tab 0 · stats + actions", "pos": [40, 100], "size": [150, 64] },
+    { "id": "clock", "type": "frontend", "label": "Clock", "sublabel": "tab 1 · punch", "pos": [240, 100], "size": [140, 64] },
+    { "id": "attendance", "type": "frontend", "label": "Team attendance", "sublabel": "tab 2 · filters", "pos": [430, 100], "size": [160, 64] },
+    { "id": "alerts", "type": "frontend", "label": "Alerts", "sublabel": "tab 3", "pos": [650, 100], "size": [130, 64] },
+    { "id": "more", "type": "frontend", "label": "More", "sublabel": "tab 4 · settings", "pos": [840, 100], "size": [140, 64] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Manager bottom navigation", "wraps": ["shell", "overview", "clock", "attendance", "alerts", "more"], "pad": 26 }
+  ],
+  "connections": [
+    { "id": "t0", "from": "shell", "to": "overview", "label": "Overview", "fromSide": "top", "toSide": "bottom" },
+    { "id": "t1", "from": "shell", "to": "clock", "label": "Clock", "fromSide": "top", "toSide": "bottom" },
+    { "id": "t2", "from": "shell", "to": "attendance", "label": "Attendance", "fromSide": "top", "toSide": "bottom" },
+    { "id": "t3", "from": "shell", "to": "alerts", "label": "Alerts", "fromSide": "top", "toSide": "bottom" },
+    { "id": "t4", "from": "shell", "to": "more", "label": "More", "fromSide": "top", "toSide": "bottom" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Start here", "items": ["Managers land on Overview", "Next section shows what Overview and Attendance open"] }
+  ]
+}

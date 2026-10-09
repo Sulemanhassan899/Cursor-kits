@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Obecno Launch & Auth Screens",
+    "subtitle": "Splash routing through login, join, and role home shells",
+    "output": "auth-screens.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Sulemanhassan899/obecno.git",
+      "provider": "github",
+      "revision": "674dbc537595bdbcaba8142674b813cf27ffe7d2"
+    },
+    "views": [
+      {
+        "id": "cold-start",
+        "label": "Cold start",
+        "focus": ["splash", "onboarding", "login", "permissions", "employee-home", "manager-home"],
+        "note": "Splash resolves session and sends the user to the right shell"
+      },
+      {
+        "id": "join-path",
+        "label": "Join invite",
+        "focus": ["deep-link", "joined", "login", "permissions"],
+        "note": "Invite deep links land on You've Joined then continue auth"
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "user",
+      "type": "external",
+      "label": "User opens app",
+      "sublabel": "cold start / deep link",
+      "pos": [40, 300],
+      "size": [136, 64]
+    },
+    {
+      "id": "splash",
+      "type": "frontend",
+      "label": "Splash",
+      "sublabel": "/",
+      "pos": [260, 300],
+      "size": [128, 64],
+      "sources": [{ "path": "lib/features/launch/splash/splash.dart", "line": 122, "end_line": 157, "label": "route resolve" }]
+    },
+    {
+      "id": "onboarding",
+      "type": "frontend",
+      "label": "Onboarding",
+      "sublabel": "/onboarding",
+      "pos": [470, 300],
+      "size": [132, 64]
+    },
+    {
+      "id": "book-demo",
+      "type": "frontend",
+      "label": "Book demo",
+      "sublabel": "/bookdemo",
+      "pos": [470, 120],
+      "size": [132, 62]
+    },
+    {
+      "id": "login",
+      "type": "frontend",
+      "label": "Login email",
+      "sublabel": "/login",
+      "pos": [680, 300],
+      "size": [128, 64],
+      "sources": [{ "path": "lib/core/routes/app_routes.dart", "line": 33, "end_line": 42, "label": "login routes" }]
+    },
+    {
+      "id": "password",
+      "type": "frontend",
+      "label": "Login password",
+      "sublabel": "/login/password",
+      "pos": [880, 300],
+      "size": [140, 64]
+    },
+    {
+      "id": "forgot",
+      "type": "frontend",
+      "label": "Forgot password",
+      "sublabel": "sheet + screen",
+      "pos": [880, 120],
+      "size": [140, 62]
+    },
+    {
+      "id": "permissions",
+      "type": "security",
+      "label": "Enable permissions",
+      "sublabel": "/enable_permissions",
+      "pos": [1100, 300],
+      "size": [150, 64]
+    },
+    {
+      "id": "employee-home",
+      "type": "frontend",
+      "label": "Employee home",
+      "sublabel": "/employee_nav",
+      "pos": [1320, 180],
+      "size": [140, 64],
+      "tag": "4 tabs"
+    },
+    {
+      "id": "manager-home",
+      "type": "frontend",
+      "label": "Manager home",
+      "sublabel": "/manager_nav",
+      "pos": [1320, 420],
+      "size": [140, 64],
+      "tag": "5 tabs"
+    },
+    {
+      "id": "deep-link",
+      "type": "external",
+      "label": "Invite deep link",
+      "sublabel": "obecno:// join",
+      "pos": [40, 120],
+      "size": [136, 62]
+    },
+    {
+      "id": "joined",
+      "type": "frontend",
+      "label": "You've joined",
+      "sublabel": "/youve_joined",
+      "pos": [260, 120],
+      "size": [128, 62]
+    },
+    {
+      "id": "blocked",
+      "type": "security",
+      "label": "Device blocked",
+      "sublabel": "/device_blocked",
+      "pos": [1100, 480],
+      "size": [150, 62]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Pre-auth launch & login",
+      "wraps": ["splash", "onboarding", "book-demo", "login", "password", "forgot", "joined"],
+      "pad": 16
+    },
+    {
+      "kind": "security-group",
+      "label": "Gate before role shells",
+      "wraps": ["permissions", "blocked"],
+      "pad": 12
+    }
+  ],
+  "connections": [
+    { "id": "open-splash", "from": "user", "to": "splash", "label": "open", "variant": "emphasis" },
+    { "id": "splash-onboard", "from": "splash", "to": "onboarding", "label": "first launch" },
+    { "id": "onboard-login", "from": "onboarding", "to": "login", "label": "Sign in" },
+    { "id": "onboard-demo", "from": "onboarding", "to": "book-demo", "label": "Book a demo", "fromSide": "top", "toSide": "bottom" },
+    { "id": "login-pass", "from": "login", "to": "password", "variant": "emphasis" },
+    { "id": "pass-forgot", "from": "password", "to": "forgot", "label": "forgot?", "variant": "dashed", "fromSide": "top", "toSide": "bottom" },
+    { "id": "pass-perm", "from": "password", "to": "permissions", "label": "success" },
+    { "id": "perm-emp", "from": "permissions", "to": "employee-home", "label": "employee role", "fromSide": "top", "toSide": "left" },
+    { "id": "perm-mgr", "from": "permissions", "to": "manager-home", "label": "manager role", "fromSide": "bottom", "toSide": "left" },
+    { "id": "link-joined", "from": "deep-link", "to": "joined", "variant": "security" },
+    { "id": "joined-login", "from": "joined", "to": "login", "label": "continue", "variant": "security" },
+    { "id": "gate-blocked", "from": "permissions", "to": "blocked", "label": "device rejected", "variant": "security", "fromSide": "bottom", "toSide": "top" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "How cold start works",
+      "items": [
+        "Splash checks onboarding, session, permissions, then role",
+        "Returning users skip onboarding/login when the session is still valid",
+        "Managers land on /manager_nav; employees on /employee_nav"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Branches",
+      "items": [
+        "Book demo is reached from onboarding, not from the role shells",
+        "Device blocked is a dead-end gate until the device is allowed again"
+      ]
+    }
+  ]
+}

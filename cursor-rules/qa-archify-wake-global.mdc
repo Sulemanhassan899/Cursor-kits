@@ -1,0 +1,48 @@
+---
+description: Combined QA + Archify wake — Archify runs automatically with QA
+alwaysApply: true
+---
+
+# Combined QA + Archify wake (all projects)
+
+Kit home: `~/Documents/Cursor-kits/`  
+(Legacy: `~/Documents/QA-kit` + `~/Documents/Archify-kit`)
+
+## One wake = QA + Archify + Live Guide
+
+When the user says:
+
+> make a apk release build and wake up the QA agent
+
+You MUST (do **not** ask; do **not** require a second Archify command):
+
+1. Resolve both roots:
+   ```bash
+   eval "$(bash ~/Documents/Cursor-kits/tools/resolve-roots.sh "$(pwd)")"
+   echo "$QA_ROOT" "$ARCHIFY_ROOT"
+   ```
+2. Build release + run QA (`$QA_ROOT/agents/00-orchestrator.md` or qa-kit orchestrator).
+3. **Automatically** attach Archify:
+   ```bash
+   ARCHIFY_ROOT=$(bash ~/Documents/Cursor-kits/tools/ensure-archify-with-qa.sh "$(pwd)")
+   ```
+   Run Archify orchestrator / plan — **you decide agent count**. Never ask the user how many agents.
+4. After QA (+ Archify) finish, **always** open Live Guide:
+   ```bash
+   bash ~/Documents/Cursor-kits/tools/after-qa-open-live.sh "$ARCHIFY_ROOT" "<run_id-if-any>"
+   ```
+
+Only skip Archify if the user message contains `skip_archify: true`.
+
+## Debug screen wake
+
+> wake up the agent and QA this screen and its widgets (FILE) (WHAT_TO_QA)
+
+Run screen QA, ensure Archify root exists, then open Live Guide when done.
+
+## Hard rules
+
+- Never edit product app source for QA or Archify
+- Never tell the user to run “Make the archify of this project” after a QA wake — it is already included
+- Write QA results only under `$QA_ROOT/results` + `reports`
+- Write Archify under `$ARCHIFY_ROOT`

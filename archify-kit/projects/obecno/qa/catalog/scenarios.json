@@ -1,0 +1,2402 @@
+[
+  {
+    "id": "EMP-SPLASH-001",
+    "role": "shared",
+    "module": "Splash",
+    "screen": "Launch",
+    "functionality": "2–4 sec logo",
+    "online": true,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "ui"
+    ],
+    "steps": [
+      "Cold-start the release APK",
+      "Observe splash branding and duration"
+    ],
+    "expected": "Logo/brand splash displays ~2–4s then navigates without crash"
+  },
+  {
+    "id": "EMP-SPLASH-002",
+    "role": "shared",
+    "module": "Splash",
+    "screen": "Launch",
+    "functionality": "Deep-link / resume after kill",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "session"
+    ],
+    "steps": [
+      "Force-stop app",
+      "Relaunch",
+      "Confirm splash then last-auth routing"
+    ],
+    "expected": "Splash appears once; authenticated users skip login, guests land on launch flow"
+  },
+  {
+    "id": "EMP-SPLASH-003",
+    "role": "shared",
+    "module": "Splash",
+    "screen": "Launch",
+    "functionality": "Offline splash still branded",
+    "online": false,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "offline",
+      "ui"
+    ],
+    "steps": [
+      "Enable airplane mode",
+      "Launch app"
+    ],
+    "expected": "Splash renders offline; no blank flash; proceeds to offline-capable next screen"
+  },
+  {
+    "id": "EMP-ONB-001",
+    "role": "shared",
+    "module": "Onboarding",
+    "screen": "Carousel",
+    "functionality": "First-run slides",
+    "online": true,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "ui"
+    ],
+    "steps": [
+      "Clear app data",
+      "Launch",
+      "Swipe through all onboarding slides"
+    ],
+    "expected": "All slides show copy/images; next/skip controls work"
+  },
+  {
+    "id": "EMP-ONB-002",
+    "role": "shared",
+    "module": "Onboarding",
+    "screen": "Carousel",
+    "functionality": "Skip to login/launch",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression"
+    ],
+    "steps": [
+      "On first slide tap Skip/Get Started"
+    ],
+    "expected": "User exits onboarding to Book Demo / Login entry without loop"
+  },
+  {
+    "id": "EMP-ONB-003",
+    "role": "shared",
+    "module": "Onboarding",
+    "screen": "Carousel",
+    "functionality": "Do not re-show after complete",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "session"
+    ],
+    "steps": [
+      "Complete onboarding",
+      "Kill app",
+      "Relaunch"
+    ],
+    "expected": "Onboarding does not reappear for same install"
+  },
+  {
+    "id": "EMP-DEMO-001",
+    "role": "shared",
+    "module": "Book a Demo",
+    "screen": "Form",
+    "functionality": "Submit valid demo request",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "forms"
+    ],
+    "steps": [
+      "Open Book a Demo",
+      "Fill required fields with valid data",
+      "Submit"
+    ],
+    "expected": "Success confirmation; no crash; fields validated"
+  },
+  {
+    "id": "EMP-DEMO-002",
+    "role": "shared",
+    "module": "Book a Demo",
+    "screen": "Form",
+    "functionality": "Validation empty fields",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "forms",
+      "ui"
+    ],
+    "steps": [
+      "Open Book a Demo",
+      "Submit with empty required fields"
+    ],
+    "expected": "Inline validation errors; submit blocked"
+  },
+  {
+    "id": "EMP-DEMO-003",
+    "role": "shared",
+    "module": "Book a Demo",
+    "screen": "Form",
+    "functionality": "Offline submit blocked gracefully",
+    "online": false,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "offline",
+      "forms"
+    ],
+    "steps": [
+      "Airplane mode",
+      "Open Book a Demo",
+      "Attempt submit"
+    ],
+    "expected": "Clear offline/error message; no silent failure"
+  },
+  {
+    "id": "EMP-DEMO-004",
+    "role": "shared",
+    "module": "Book a Demo",
+    "screen": "Form",
+    "functionality": "Back navigation draft behavior",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "forms",
+      "ui"
+    ],
+    "steps": [
+      "Partially fill form",
+      "Navigate back",
+      "Return"
+    ],
+    "expected": "Behavior matches design (preserve or clear) without crash"
+  },
+  {
+    "id": "EMP-LEGAL-001",
+    "role": "shared",
+    "module": "Terms",
+    "screen": "Legal",
+    "functionality": "Open Terms of Service",
+    "online": true,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "legal",
+      "ui"
+    ],
+    "steps": [
+      "From launch/login/more open Terms"
+    ],
+    "expected": "Terms content loads (or cached offline); scrollable; back works"
+  },
+  {
+    "id": "EMP-LEGAL-002",
+    "role": "shared",
+    "module": "Privacy",
+    "screen": "Legal",
+    "functionality": "Open Privacy Policy",
+    "online": true,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "legal",
+      "ui"
+    ],
+    "steps": [
+      "Open Privacy Policy from launch/login/more"
+    ],
+    "expected": "Privacy content loads; scrollable; back works"
+  },
+  {
+    "id": "EMP-LEGAL-003",
+    "role": "shared",
+    "module": "Terms",
+    "screen": "Legal",
+    "functionality": "Accept terms gate if required",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "legal"
+    ],
+    "steps": [
+      "Trigger any terms acceptance gate if present",
+      "Accept"
+    ],
+    "expected": "Acceptance recorded; user can proceed"
+  },
+  {
+    "id": "EMP-LOGIN-001",
+    "role": "shared",
+    "module": "Login",
+    "screen": "Email",
+    "functionality": "Valid email continues",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "auth"
+    ],
+    "steps": [
+      "Open email login",
+      "Enter known employee email",
+      "Continue"
+    ],
+    "expected": "Proceeds to password step without error"
+  },
+  {
+    "id": "EMP-LOGIN-002",
+    "role": "shared",
+    "module": "Login",
+    "screen": "Email",
+    "functionality": "Invalid email format",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "auth",
+      "forms"
+    ],
+    "steps": [
+      "Enter malformed email",
+      "Continue"
+    ],
+    "expected": "Validation error; does not advance"
+  },
+  {
+    "id": "EMP-LOGIN-003",
+    "role": "shared",
+    "module": "Login",
+    "screen": "Email",
+    "functionality": "Unknown email message",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "auth"
+    ],
+    "steps": [
+      "Enter non-registered email",
+      "Continue"
+    ],
+    "expected": "Clear user-not-found or equivalent message"
+  },
+  {
+    "id": "EMP-LOGIN-004",
+    "role": "shared",
+    "module": "Login",
+    "screen": "Password",
+    "functionality": "Valid employee password",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "auth"
+    ],
+    "steps": [
+      "Enter valid email",
+      "Enter correct password",
+      "Sign in"
+    ],
+    "expected": "Lands on employee home / permissions flow"
+  },
+  {
+    "id": "EMP-LOGIN-005",
+    "role": "shared",
+    "module": "Login",
+    "screen": "Password",
+    "functionality": "Wrong password",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "auth",
+      "security"
+    ],
+    "steps": [
+      "Enter valid email",
+      "Enter wrong password",
+      "Sign in"
+    ],
+    "expected": "Error shown; no session created"
+  },
+  {
+    "id": "EMP-LOGIN-006",
+    "role": "shared",
+    "module": "Login",
+    "screen": "Password",
+    "functionality": "Show/hide password toggle",
+    "online": true,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "ui",
+      "auth"
+    ],
+    "steps": [
+      "On password field toggle visibility"
+    ],
+    "expected": "Mask/unmask works; value preserved"
+  },
+  {
+    "id": "EMP-LOGIN-007",
+    "role": "shared",
+    "module": "Login",
+    "screen": "Forgot",
+    "functionality": "Forgot password request",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "auth"
+    ],
+    "steps": [
+      "Tap Forgot password",
+      "Submit registered email"
+    ],
+    "expected": "Reset/instructions confirmation shown"
+  },
+  {
+    "id": "EMP-LOGIN-008",
+    "role": "shared",
+    "module": "Login",
+    "screen": "Forgot",
+    "functionality": "Forgot with unknown email",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "auth",
+      "security"
+    ],
+    "steps": [
+      "Forgot flow with unknown email"
+    ],
+    "expected": "Safe message (no account enumeration if designed that way) or clear error"
+  },
+  {
+    "id": "EMP-LOGIN-009",
+    "role": "shared",
+    "module": "Login",
+    "screen": "Email",
+    "functionality": "Offline login attempt",
+    "online": false,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "offline",
+      "auth"
+    ],
+    "steps": [
+      "Airplane mode",
+      "Attempt sign-in"
+    ],
+    "expected": "Offline error; no hang"
+  },
+  {
+    "id": "EMP-LOGIN-010",
+    "role": "manager",
+    "module": "Login",
+    "screen": "Password",
+    "functionality": "Valid manager password",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "auth"
+    ],
+    "steps": [
+      "Sign in with manager credentials"
+    ],
+    "expected": "Lands on manager overview / manager nav"
+  },
+  {
+    "id": "EMP-LOGIN-011",
+    "role": "shared",
+    "module": "Login",
+    "screen": "Password",
+    "functionality": "Enter key submits",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "auth",
+      "ui"
+    ],
+    "steps": [
+      "Fill password",
+      "Press keyboard Done/Enter"
+    ],
+    "expected": "Submits login if fields valid"
+  },
+  {
+    "id": "EMP-PERM-001",
+    "role": "employee",
+    "module": "Enable permissions",
+    "screen": "Permissions",
+    "functionality": "Location permission prompt",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "permissions"
+    ],
+    "steps": [
+      "Login as employee needing permissions",
+      "Grant location when prompted"
+    ],
+    "expected": "Permission granted; flow continues to home"
+  },
+  {
+    "id": "EMP-PERM-002",
+    "role": "employee",
+    "module": "Enable permissions",
+    "screen": "Permissions",
+    "functionality": "Deny location then retry",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "permissions",
+      "ui"
+    ],
+    "steps": [
+      "Deny location",
+      "Observe guidance",
+      "Open settings / retry grant"
+    ],
+    "expected": "App explains why needed; can re-request or deep-link settings"
+  },
+  {
+    "id": "EMP-PERM-003",
+    "role": "employee",
+    "module": "Enable permissions",
+    "screen": "Permissions",
+    "functionality": "Notification permission",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "permissions"
+    ],
+    "steps": [
+      "Grant or deny notifications on enable screen"
+    ],
+    "expected": "Choice respected; app remains usable"
+  },
+  {
+    "id": "EMP-PERM-004",
+    "role": "employee",
+    "module": "Enable permissions",
+    "screen": "Permissions",
+    "functionality": "Skip path if optional",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "permissions"
+    ],
+    "steps": [
+      "If skip allowed, skip permissions",
+      "Open Clock"
+    ],
+    "expected": "Clock explains missing permission when needed"
+  },
+  {
+    "id": "EMP-NAV-001",
+    "role": "employee",
+    "module": "Employee home nav",
+    "screen": "Bottom nav",
+    "functionality": "Tabs: Clock/Attendance/Alerts/More",
+    "online": true,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "nav",
+      "ui"
+    ],
+    "steps": [
+      "Login as employee",
+      "Tap each bottom-nav tab"
+    ],
+    "expected": "Each tab opens correct root screen; selection state correct"
+  },
+  {
+    "id": "EMP-NAV-002",
+    "role": "employee",
+    "module": "Employee home nav",
+    "screen": "Bottom nav",
+    "functionality": "Preserve tab state on switch",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "nav",
+      "ui"
+    ],
+    "steps": [
+      "Open Attendance with a filter/scroll",
+      "Switch to Clock then back"
+    ],
+    "expected": "State preserved or documented reset; no crash"
+  },
+  {
+    "id": "EMP-NAV-003",
+    "role": "employee",
+    "module": "Employee home nav",
+    "screen": "Bottom nav",
+    "functionality": "Alerts badge if unread",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "nav",
+      "alerts",
+      "ui"
+    ],
+    "steps": [
+      "Ensure unread alert exists",
+      "View home nav"
+    ],
+    "expected": "Alerts icon shows badge/indicator when applicable"
+  },
+  {
+    "id": "EMP-CLK-001",
+    "role": "employee",
+    "module": "Clock Module",
+    "screen": "Clock screen",
+    "functionality": "Clock In button online in-range",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "clock"
+    ],
+    "steps": [
+      "On Clock tab with location allowed and in-range",
+      "Tap Clock In"
+    ],
+    "expected": "Punch success; status updates to clocked in"
+  },
+  {
+    "id": "EMP-CLK-002",
+    "role": "employee",
+    "module": "Clock Module",
+    "screen": "Clock screen",
+    "functionality": "Clock Out after clock-in",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "clock"
+    ],
+    "steps": [
+      "While clocked in tap Clock Out"
+    ],
+    "expected": "Punch success; status clocked out"
+  },
+  {
+    "id": "EMP-CLK-003",
+    "role": "employee",
+    "module": "Clock Module",
+    "screen": "Clock screen",
+    "functionality": "Break start/end if available",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "clock"
+    ],
+    "steps": [
+      "Use break controls if present"
+    ],
+    "expected": "Break state toggles correctly and reflects on card"
+  },
+  {
+    "id": "EMP-CLK-004",
+    "role": "employee",
+    "module": "Clock Module",
+    "screen": "Location sheet",
+    "functionality": "Open location / office sheet",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "clock",
+      "locations",
+      "ui"
+    ],
+    "steps": [
+      "Open location selector/sheet from Clock"
+    ],
+    "expected": "Assigned offices/locations listed; select updates context"
+  },
+  {
+    "id": "EMP-CLK-005",
+    "role": "employee",
+    "module": "Clock Module",
+    "screen": "Location sheet",
+    "functionality": "Out-of-range punch blocked",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "clock",
+      "locations",
+      "security"
+    ],
+    "steps": [
+      "Simulate/stand outside geofence",
+      "Attempt Clock In"
+    ],
+    "expected": "Blocked with clear out-of-range message"
+  },
+  {
+    "id": "EMP-CLK-006",
+    "role": "employee",
+    "module": "Clock Module",
+    "screen": "Attendance card",
+    "functionality": "Today card summary",
+    "online": true,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "clock",
+      "ui"
+    ],
+    "steps": [
+      "View Clock screen attendance card"
+    ],
+    "expected": "Shows today in/out/status consistent with last punches"
+  },
+  {
+    "id": "EMP-CLK-007",
+    "role": "employee",
+    "module": "Clock Module",
+    "screen": "Details",
+    "functionality": "Open punch / day details",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "clock",
+      "attendance"
+    ],
+    "steps": [
+      "Open details from card or recent punch"
+    ],
+    "expected": "Details show time, location, status, edit affordance if allowed"
+  },
+  {
+    "id": "EMP-CLK-008",
+    "role": "employee",
+    "module": "Clock Module",
+    "screen": "Add/Edit",
+    "functionality": "Add attendance from clock flow",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "clock",
+      "attendance",
+      "forms"
+    ],
+    "steps": [
+      "Open add attendance bottom sheet",
+      "Fill times",
+      "Save"
+    ],
+    "expected": "Record created or request submitted per product rules"
+  },
+  {
+    "id": "EMP-CLK-009",
+    "role": "employee",
+    "module": "Clock Module",
+    "screen": "Add/Edit",
+    "functionality": "Edit attendance request",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "clock",
+      "attendance",
+      "forms"
+    ],
+    "steps": [
+      "Open editable punch",
+      "Change time/reason",
+      "Submit"
+    ],
+    "expected": "Edit saved or pending-approval state shown"
+  },
+  {
+    "id": "EMP-CLK-010",
+    "role": "employee",
+    "module": "Clock Module",
+    "screen": "Clock screen",
+    "functionality": "Offline clock behavior",
+    "online": false,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "offline",
+      "clock"
+    ],
+    "steps": [
+      "Airplane mode",
+      "Attempt punch"
+    ],
+    "expected": "Queued or clear offline message per design; no crash"
+  },
+  {
+    "id": "EMP-CLK-011",
+    "role": "employee",
+    "module": "Clock Module",
+    "screen": "Clock screen",
+    "functionality": "Disabled when device not approved",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "clock",
+      "devices",
+      "security"
+    ],
+    "steps": [
+      "Login on unapproved device if possible"
+    ],
+    "expected": "Clock actions blocked with device-approval message"
+  },
+  {
+    "id": "EMP-CLK-012",
+    "role": "employee",
+    "module": "Clock Module",
+    "screen": "Buttons",
+    "functionality": "Double-tap Clock In idempotent",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "clock",
+      "regression"
+    ],
+    "steps": [
+      "Double-tap Clock In quickly"
+    ],
+    "expected": "Single punch created; no duplicate or clear debounce"
+  },
+  {
+    "id": "EMP-CLK-013",
+    "role": "employee",
+    "module": "Clock Module",
+    "screen": "Details",
+    "functionality": "Notes/reason field",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "clock",
+      "forms"
+    ],
+    "steps": [
+      "Add note on punch/edit if available"
+    ],
+    "expected": "Note saved and shown in details"
+  },
+  {
+    "id": "EMP-ATT-001",
+    "role": "employee",
+    "module": "Attendance Module",
+    "screen": "List",
+    "functionality": "History list loads",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "attendance"
+    ],
+    "steps": [
+      "Open Attendance tab"
+    ],
+    "expected": "Past days/punches list loads"
+  },
+  {
+    "id": "EMP-ATT-002",
+    "role": "employee",
+    "module": "Attendance Module",
+    "screen": "Filters",
+    "functionality": "Date/range filter",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "attendance",
+      "forms"
+    ],
+    "steps": [
+      "Apply date filter",
+      "Clear filter"
+    ],
+    "expected": "List updates; empty state if none"
+  },
+  {
+    "id": "EMP-ATT-003",
+    "role": "employee",
+    "module": "Attendance Module",
+    "screen": "Details",
+    "functionality": "Open attendance detail",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "attendance"
+    ],
+    "steps": [
+      "Tap a row"
+    ],
+    "expected": "Detail shows punches, duration, location"
+  },
+  {
+    "id": "EMP-ATT-004",
+    "role": "employee",
+    "module": "Attendance Module",
+    "screen": "Add/Edit",
+    "functionality": "Add from Attendance module",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "attendance",
+      "forms"
+    ],
+    "steps": [
+      "Add attendance entry",
+      "Save"
+    ],
+    "expected": "Appears in list or pending"
+  },
+  {
+    "id": "EMP-ATT-005",
+    "role": "employee",
+    "module": "Attendance Module",
+    "screen": "List",
+    "functionality": "Offline cached list",
+    "online": false,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "offline",
+      "attendance"
+    ],
+    "steps": [
+      "Airplane mode",
+      "Open Attendance"
+    ],
+    "expected": "Cached data or offline message; no crash"
+  },
+  {
+    "id": "EMP-ATT-006",
+    "role": "employee",
+    "module": "Attendance Module",
+    "screen": "Empty",
+    "functionality": "Empty state copy",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "attendance",
+      "ui",
+      "spelling"
+    ],
+    "steps": [
+      "Filter to range with no records"
+    ],
+    "expected": "Friendly empty state; no raw errors"
+  },
+  {
+    "id": "EMP-ALR-001",
+    "role": "employee",
+    "module": "Alerts Module",
+    "screen": "List",
+    "functionality": "Alerts list loads",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "alerts"
+    ],
+    "steps": [
+      "Open Alerts tab"
+    ],
+    "expected": "Alerts list loads (or empty state)"
+  },
+  {
+    "id": "EMP-ALR-002",
+    "role": "employee",
+    "module": "Alerts Module",
+    "screen": "Detail",
+    "functionality": "Open alert detail",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "alerts"
+    ],
+    "steps": [
+      "Tap an alert"
+    ],
+    "expected": "Detail readable; mark-read if applicable"
+  },
+  {
+    "id": "EMP-ALR-003",
+    "role": "employee",
+    "module": "Alerts Module",
+    "screen": "List",
+    "functionality": "Pull to refresh",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "alerts",
+      "ui"
+    ],
+    "steps": [
+      "Pull to refresh alerts"
+    ],
+    "expected": "Refresh completes; list updates"
+  },
+  {
+    "id": "EMP-ALR-004",
+    "role": "employee",
+    "module": "Alerts Module",
+    "screen": "Empty",
+    "functionality": "Empty alerts state",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "alerts",
+      "ui"
+    ],
+    "steps": [
+      "Account with no alerts"
+    ],
+    "expected": "Empty illustration/copy; no crash"
+  },
+  {
+    "id": "EMP-MORE-001",
+    "role": "employee",
+    "module": "More Module",
+    "screen": "More root",
+    "functionality": "Open More hub",
+    "online": true,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "more",
+      "ui"
+    ],
+    "steps": [
+      "Open More tab"
+    ],
+    "expected": "Profile header and menu items visible"
+  },
+  {
+    "id": "EMP-MORE-002",
+    "role": "employee",
+    "module": "More Module",
+    "screen": "Profile",
+    "functionality": "View/edit profile fields",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "more",
+      "profile",
+      "forms"
+    ],
+    "steps": [
+      "Open Profile",
+      "Edit allowed fields",
+      "Save"
+    ],
+    "expected": "Changes persist or validation clears"
+  },
+  {
+    "id": "EMP-MORE-003",
+    "role": "employee",
+    "module": "More Module",
+    "screen": "Offices",
+    "functionality": "View assigned offices",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "more",
+      "locations"
+    ],
+    "steps": [
+      "Open Offices"
+    ],
+    "expected": "Assigned offices listed"
+  },
+  {
+    "id": "EMP-MORE-004",
+    "role": "employee",
+    "module": "More Module",
+    "screen": "Reminders",
+    "functionality": "Reminders settings",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "more",
+      "reminders"
+    ],
+    "steps": [
+      "Open Reminders",
+      "Toggle a reminder"
+    ],
+    "expected": "Preference saves"
+  },
+  {
+    "id": "EMP-MORE-005",
+    "role": "employee",
+    "module": "More Module",
+    "screen": "Devices",
+    "functionality": "Devices list",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "more",
+      "devices",
+      "security"
+    ],
+    "steps": [
+      "Open Devices"
+    ],
+    "expected": "Current and known devices listed with status"
+  },
+  {
+    "id": "EMP-MORE-006",
+    "role": "employee",
+    "module": "More Module",
+    "screen": "Password",
+    "functionality": "Change password success",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "more",
+      "auth",
+      "security"
+    ],
+    "steps": [
+      "Change password with correct current + valid new"
+    ],
+    "expected": "Success; can re-login with new password"
+  },
+  {
+    "id": "EMP-MORE-007",
+    "role": "employee",
+    "module": "More Module",
+    "screen": "Password",
+    "functionality": "Change password wrong current",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "more",
+      "auth",
+      "security"
+    ],
+    "steps": [
+      "Submit wrong current password"
+    ],
+    "expected": "Error; password unchanged"
+  },
+  {
+    "id": "EMP-MORE-008",
+    "role": "employee",
+    "module": "More Module",
+    "screen": "Legal",
+    "functionality": "Terms/Privacy from More",
+    "online": true,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "more",
+      "legal"
+    ],
+    "steps": [
+      "Open Terms and Privacy from More"
+    ],
+    "expected": "Documents open; back to More"
+  },
+  {
+    "id": "EMP-MORE-009",
+    "role": "employee",
+    "module": "More Module",
+    "screen": "Logout",
+    "functionality": "Logout clears session",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "more",
+      "auth",
+      "session",
+      "security"
+    ],
+    "steps": [
+      "Tap Logout",
+      "Confirm"
+    ],
+    "expected": "Returns to login/launch; protected tabs inaccessible"
+  },
+  {
+    "id": "EMP-MORE-010",
+    "role": "employee",
+    "module": "More Module",
+    "screen": "Devices",
+    "functionality": "Rename/remove device if available",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "devices",
+      "more"
+    ],
+    "steps": [
+      "Open device actions"
+    ],
+    "expected": "Supported actions work or are hidden cleanly"
+  },
+  {
+    "id": "EMP-SESS-001",
+    "role": "shared",
+    "module": "Session safety",
+    "screen": "Auth",
+    "functionality": "Token expiry redirects",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "session",
+      "security"
+    ],
+    "steps": [
+      "Expire/invalidate session if testable",
+      "Navigate"
+    ],
+    "expected": "User forced to re-auth; no private data left visible"
+  },
+  {
+    "id": "EMP-SESS-002",
+    "role": "shared",
+    "module": "Session safety",
+    "screen": "Auth",
+    "functionality": "Kill app keeps valid session",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "session"
+    ],
+    "steps": [
+      "Login",
+      "Force stop",
+      "Relaunch"
+    ],
+    "expected": "Still authenticated if token valid"
+  },
+  {
+    "id": "EMP-SESS-003",
+    "role": "shared",
+    "module": "Session safety",
+    "screen": "Auth",
+    "functionality": "No cross-role leakage",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "session",
+      "security"
+    ],
+    "steps": [
+      "Login employee",
+      "Logout",
+      "Login manager"
+    ],
+    "expected": "No employee-only data flash; correct role nav"
+  },
+  {
+    "id": "MGR-OVR-001",
+    "role": "manager",
+    "module": "Overview",
+    "screen": "Dashboard",
+    "functionality": "Overview loads KPIs",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "overview"
+    ],
+    "steps": [
+      "Login as manager",
+      "Open Overview"
+    ],
+    "expected": "Dashboard widgets/stats load without error"
+  },
+  {
+    "id": "MGR-OVR-002",
+    "role": "manager",
+    "module": "Overview",
+    "screen": "Dashboard",
+    "functionality": "Tap-through to lists",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "overview",
+      "nav"
+    ],
+    "steps": [
+      "Tap a summary card if interactive"
+    ],
+    "expected": "Navigates to related employees/attendance/alerts"
+  },
+  {
+    "id": "MGR-OVR-003",
+    "role": "manager",
+    "module": "Overview",
+    "screen": "Dashboard",
+    "functionality": "Offline overview",
+    "online": false,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "offline",
+      "overview"
+    ],
+    "steps": [
+      "Airplane mode",
+      "Open Overview"
+    ],
+    "expected": "Cached or offline message; no crash"
+  },
+  {
+    "id": "MGR-OVR-004",
+    "role": "manager",
+    "module": "Overview",
+    "screen": "Dashboard",
+    "functionality": "Date range on overview if present",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "overview",
+      "forms"
+    ],
+    "steps": [
+      "Change overview date range"
+    ],
+    "expected": "Metrics refresh"
+  },
+  {
+    "id": "MGR-EMP-001",
+    "role": "manager",
+    "module": "Employees",
+    "screen": "List",
+    "functionality": "Employee list loads",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "employees"
+    ],
+    "steps": [
+      "Open Employees"
+    ],
+    "expected": "Team list loads with names/status"
+  },
+  {
+    "id": "MGR-EMP-002",
+    "role": "manager",
+    "module": "Employees",
+    "screen": "List",
+    "functionality": "Search/filter employees",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "employees",
+      "forms"
+    ],
+    "steps": [
+      "Search by name",
+      "Clear search"
+    ],
+    "expected": "List filters correctly"
+  },
+  {
+    "id": "MGR-EMP-003",
+    "role": "manager",
+    "module": "Employees",
+    "screen": "Add",
+    "functionality": "Add employee form validation",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "employees",
+      "forms"
+    ],
+    "steps": [
+      "Open Add Employee",
+      "Submit empty",
+      "Fill required",
+      "Save"
+    ],
+    "expected": "Validation then success or pending invite"
+  },
+  {
+    "id": "MGR-EMP-004",
+    "role": "manager",
+    "module": "Employees",
+    "screen": "Profile",
+    "functionality": "Open employee profile",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "employees",
+      "profile"
+    ],
+    "steps": [
+      "Tap employee",
+      "View profile"
+    ],
+    "expected": "Profile details visible"
+  },
+  {
+    "id": "MGR-EMP-005",
+    "role": "manager",
+    "module": "Employees",
+    "screen": "Attendance",
+    "functionality": "Employee attendance from profile",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "employees",
+      "attendance"
+    ],
+    "steps": [
+      "From employee profile open attendance"
+    ],
+    "expected": "Attendance history for that employee loads"
+  },
+  {
+    "id": "MGR-EMP-006",
+    "role": "manager",
+    "module": "Employees",
+    "screen": "Locations",
+    "functionality": "Assign/view employee locations",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "employees",
+      "locations"
+    ],
+    "steps": [
+      "Open employee locations"
+    ],
+    "expected": "Assigned locations shown; changes save if editable"
+  },
+  {
+    "id": "MGR-EMP-007",
+    "role": "manager",
+    "module": "Employees",
+    "screen": "Devices",
+    "functionality": "Approve/reject device",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "employees",
+      "devices",
+      "security"
+    ],
+    "steps": [
+      "Open pending device",
+      "Approve or reject"
+    ],
+    "expected": "Status updates; employee impact noted"
+  },
+  {
+    "id": "MGR-EMP-008",
+    "role": "manager",
+    "module": "Employees",
+    "screen": "List",
+    "functionality": "Pull to refresh employees",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "employees",
+      "ui"
+    ],
+    "steps": [
+      "Pull to refresh"
+    ],
+    "expected": "List refreshes"
+  },
+  {
+    "id": "MGR-EMP-009",
+    "role": "manager",
+    "module": "Employees",
+    "screen": "Add",
+    "functionality": "Duplicate email handling",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "employees",
+      "forms"
+    ],
+    "steps": [
+      "Add employee with existing email"
+    ],
+    "expected": "Clear duplicate error"
+  },
+  {
+    "id": "MGR-LOC-001",
+    "role": "manager",
+    "module": "Locations",
+    "screen": "List",
+    "functionality": "Locations list",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "locations"
+    ],
+    "steps": [
+      "Open Locations"
+    ],
+    "expected": "Locations list loads"
+  },
+  {
+    "id": "MGR-LOC-002",
+    "role": "manager",
+    "module": "Locations",
+    "screen": "New",
+    "functionality": "Create new location",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "locations",
+      "forms"
+    ],
+    "steps": [
+      "New location",
+      "Fill name/address/radius",
+      "Save"
+    ],
+    "expected": "Location appears in list"
+  },
+  {
+    "id": "MGR-LOC-003",
+    "role": "manager",
+    "module": "Locations",
+    "screen": "Overview",
+    "functionality": "Location overview",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "locations"
+    ],
+    "steps": [
+      "Open a location"
+    ],
+    "expected": "Overview shows settings summary and map/entry points"
+  },
+  {
+    "id": "MGR-LOC-004",
+    "role": "manager",
+    "module": "Locations",
+    "screen": "Settings",
+    "functionality": "Edit location settings",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "locations",
+      "forms"
+    ],
+    "steps": [
+      "Edit radius/hours/rules",
+      "Save"
+    ],
+    "expected": "Settings persist on reopen"
+  },
+  {
+    "id": "MGR-LOC-005",
+    "role": "manager",
+    "module": "Locations",
+    "screen": "Map",
+    "functionality": "Map pin / geofence visible",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "locations",
+      "map",
+      "ui"
+    ],
+    "steps": [
+      "Open location map"
+    ],
+    "expected": "Map renders; pin/geofence visible"
+  },
+  {
+    "id": "MGR-LOC-006",
+    "role": "manager",
+    "module": "Locations",
+    "screen": "New",
+    "functionality": "Invalid radius validation",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "locations",
+      "forms"
+    ],
+    "steps": [
+      "Enter invalid radius/coords",
+      "Save"
+    ],
+    "expected": "Validation blocks save"
+  },
+  {
+    "id": "MGR-ATT-001",
+    "role": "manager",
+    "module": "Manager Attendance",
+    "screen": "Team list",
+    "functionality": "Team attendance list",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "attendance"
+    ],
+    "steps": [
+      "Open Manager Attendance"
+    ],
+    "expected": "Team attendance list loads"
+  },
+  {
+    "id": "MGR-ATT-002",
+    "role": "manager",
+    "module": "Manager Attendance",
+    "screen": "Filters",
+    "functionality": "Filter by date/employee/status",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "attendance",
+      "forms"
+    ],
+    "steps": [
+      "Apply filters",
+      "Reset"
+    ],
+    "expected": "Results match filters"
+  },
+  {
+    "id": "MGR-ATT-003",
+    "role": "manager",
+    "module": "Manager Attendance",
+    "screen": "Details",
+    "functionality": "Open team punch detail",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "attendance"
+    ],
+    "steps": [
+      "Open a record"
+    ],
+    "expected": "Detail shows employee, times, location"
+  },
+  {
+    "id": "MGR-ATT-004",
+    "role": "manager",
+    "module": "Manager Attendance",
+    "screen": "Edit",
+    "functionality": "Edit/approve attendance",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "attendance",
+      "forms"
+    ],
+    "steps": [
+      "Edit or approve pending edit",
+      "Confirm"
+    ],
+    "expected": "Record updates; employee sees change on sync"
+  },
+  {
+    "id": "MGR-ATT-005",
+    "role": "manager",
+    "module": "Manager Attendance",
+    "screen": "Empty",
+    "functionality": "No results filter",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "attendance",
+      "ui"
+    ],
+    "steps": [
+      "Filter to impossible combo"
+    ],
+    "expected": "Empty state"
+  },
+  {
+    "id": "MGR-ALR-001",
+    "role": "manager",
+    "module": "Manager Alerts",
+    "screen": "List",
+    "functionality": "Manager alerts list",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "regression",
+      "alerts"
+    ],
+    "steps": [
+      "Open Manager Alerts"
+    ],
+    "expected": "Alerts load or empty state"
+  },
+  {
+    "id": "MGR-ALR-002",
+    "role": "manager",
+    "module": "Manager Alerts",
+    "screen": "Detail",
+    "functionality": "Act on alert if actionable",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "alerts"
+    ],
+    "steps": [
+      "Open actionable alert",
+      "Complete action"
+    ],
+    "expected": "Alert state updates"
+  },
+  {
+    "id": "MGR-CLK-001",
+    "role": "manager",
+    "module": "Manager Clock",
+    "screen": "Clock screen",
+    "functionality": "Manager can clock if role allows",
+    "online": true,
+    "offline": false,
+    "layer": "A",
+    "tags": [
+      "clock",
+      "manager"
+    ],
+    "steps": [
+      "Open Clock as manager"
+    ],
+    "expected": "Clock UI available per product rules; punch works or clearly N/A"
+  },
+  {
+    "id": "MGR-MORE-001",
+    "role": "manager",
+    "module": "Manager More",
+    "screen": "More root",
+    "functionality": "Manager More menu",
+    "online": true,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "more",
+      "manager",
+      "ui"
+    ],
+    "steps": [
+      "Open More as manager"
+    ],
+    "expected": "Manager-appropriate items; logout works"
+  },
+  {
+    "id": "MGR-NAV-001",
+    "role": "manager",
+    "module": "Manager home nav",
+    "screen": "Bottom nav",
+    "functionality": "Manager tabs switch",
+    "online": true,
+    "offline": true,
+    "layer": "A",
+    "tags": [
+      "nav",
+      "manager",
+      "ui"
+    ],
+    "steps": [
+      "Tap each manager bottom-nav item"
+    ],
+    "expected": "Correct roots; no employee-only screens leaked"
+  },
+  {
+    "id": "EMP-FULL-001",
+    "role": "employee",
+    "module": "Employee journey",
+    "screen": "End-to-end",
+    "functionality": "Fresh install → clock in",
+    "online": true,
+    "offline": false,
+    "layer": "B",
+    "tags": [
+      "journey",
+      "regression"
+    ],
+    "steps": [
+      "Install release APK",
+      "Onboarding",
+      "Login employee",
+      "Grant permissions",
+      "Clock In"
+    ],
+    "expected": "Successful first punch; home state healthy"
+  },
+  {
+    "id": "EMP-FULL-002",
+    "role": "employee",
+    "module": "Employee journey",
+    "screen": "End-to-end",
+    "functionality": "Full day punch + history",
+    "online": true,
+    "offline": false,
+    "layer": "B",
+    "tags": [
+      "journey"
+    ],
+    "steps": [
+      "Clock In",
+      "Break if available",
+      "Clock Out",
+      "Open Attendance history"
+    ],
+    "expected": "Day record complete and visible in Attendance"
+  },
+  {
+    "id": "EMP-FULL-003",
+    "role": "employee",
+    "module": "Employee journey",
+    "screen": "End-to-end",
+    "functionality": "Edit request then More logout",
+    "online": true,
+    "offline": false,
+    "layer": "B",
+    "tags": [
+      "journey",
+      "attendance"
+    ],
+    "steps": [
+      "Add/edit attendance",
+      "Check Alerts",
+      "Logout from More"
+    ],
+    "expected": "Request submitted; session cleared"
+  },
+  {
+    "id": "EMP-FULL-004",
+    "role": "employee",
+    "module": "Employee journey",
+    "screen": "End-to-end",
+    "functionality": "Forgot password recover path",
+    "online": true,
+    "offline": false,
+    "layer": "B",
+    "tags": [
+      "journey",
+      "auth"
+    ],
+    "steps": [
+      "Forgot password",
+      "Follow reset if testable",
+      "Login"
+    ],
+    "expected": "User regains access"
+  },
+  {
+    "id": "MGR-FULL-001",
+    "role": "manager",
+    "module": "Manager journey",
+    "screen": "End-to-end",
+    "functionality": "Login → overview → employees",
+    "online": true,
+    "offline": false,
+    "layer": "B",
+    "tags": [
+      "journey",
+      "regression"
+    ],
+    "steps": [
+      "Login manager",
+      "Review Overview",
+      "Open Employees list"
+    ],
+    "expected": "Core manager surfaces reachable without error"
+  },
+  {
+    "id": "MGR-FULL-002",
+    "role": "manager",
+    "module": "Manager journey",
+    "screen": "End-to-end",
+    "functionality": "Create location → assign employee",
+    "online": true,
+    "offline": false,
+    "layer": "B",
+    "tags": [
+      "journey",
+      "locations"
+    ],
+    "steps": [
+      "Create location",
+      "Open employee",
+      "Assign location"
+    ],
+    "expected": "Assignment visible on both sides"
+  },
+  {
+    "id": "MGR-FULL-003",
+    "role": "manager",
+    "module": "Manager journey",
+    "screen": "End-to-end",
+    "functionality": "Review attendance → alert",
+    "online": true,
+    "offline": false,
+    "layer": "B",
+    "tags": [
+      "journey",
+      "attendance",
+      "alerts"
+    ],
+    "steps": [
+      "Filter team attendance",
+      "Open detail",
+      "Check alerts"
+    ],
+    "expected": "Data consistent across modules"
+  },
+  {
+    "id": "MGR-FULL-004",
+    "role": "manager",
+    "module": "Manager journey",
+    "screen": "End-to-end",
+    "functionality": "Device approve then logout",
+    "online": true,
+    "offline": false,
+    "layer": "B",
+    "tags": [
+      "journey",
+      "devices"
+    ],
+    "steps": [
+      "Approve pending device",
+      "Logout"
+    ],
+    "expected": "Device approved; manager session cleared"
+  },
+  {
+    "id": "X-DEV-001",
+    "role": "cross",
+    "module": "Device approval",
+    "screen": "Cross flow",
+    "functionality": "Approve device → employee punch",
+    "online": true,
+    "offline": false,
+    "layer": "C",
+    "tags": [
+      "cross",
+      "devices",
+      "clock",
+      "security"
+    ],
+    "steps": [
+      "Employee attempts punch on pending device (blocked)",
+      "Manager approves device",
+      "Employee retries Clock In"
+    ],
+    "expected": "After approval, punch succeeds"
+  },
+  {
+    "id": "X-DEV-002",
+    "role": "cross",
+    "module": "Device approval",
+    "screen": "Cross flow",
+    "functionality": "Reject device keeps punch blocked",
+    "online": true,
+    "offline": false,
+    "layer": "C",
+    "tags": [
+      "cross",
+      "devices",
+      "security"
+    ],
+    "steps": [
+      "Manager rejects device",
+      "Employee tries Clock In"
+    ],
+    "expected": "Still blocked with clear messaging"
+  },
+  {
+    "id": "X-EDIT-001",
+    "role": "cross",
+    "module": "Edit request",
+    "screen": "Cross flow",
+    "functionality": "Employee edit → manager approve",
+    "online": true,
+    "offline": false,
+    "layer": "C",
+    "tags": [
+      "cross",
+      "attendance"
+    ],
+    "steps": [
+      "Employee submits attendance edit",
+      "Manager opens request/alert",
+      "Approve"
+    ],
+    "expected": "Employee record reflects approved times"
+  },
+  {
+    "id": "X-EDIT-002",
+    "role": "cross",
+    "module": "Edit request",
+    "screen": "Cross flow",
+    "functionality": "Employee edit → manager reject",
+    "online": true,
+    "offline": false,
+    "layer": "C",
+    "tags": [
+      "cross",
+      "attendance"
+    ],
+    "steps": [
+      "Employee submits edit",
+      "Manager rejects"
+    ],
+    "expected": "Original times remain; employee informed via alert/status"
+  },
+  {
+    "id": "X-EDIT-003",
+    "role": "cross",
+    "module": "Edit request",
+    "screen": "Cross flow",
+    "functionality": "Pending edit visible both sides",
+    "online": true,
+    "offline": false,
+    "layer": "C",
+    "tags": [
+      "cross",
+      "attendance"
+    ],
+    "steps": [
+      "Employee submits edit",
+      "Manager opens attendance detail before acting"
+    ],
+    "expected": "Pending state visible to manager"
+  },
+  {
+    "id": "X-LOC-001",
+    "role": "cross",
+    "module": "Location rules",
+    "screen": "Cross flow",
+    "functionality": "Geofence change affects clock",
+    "online": true,
+    "offline": false,
+    "layer": "C",
+    "tags": [
+      "cross",
+      "locations",
+      "clock"
+    ],
+    "steps": [
+      "Manager tightens geofence so employee is out of range",
+      "Employee attempts Clock In"
+    ],
+    "expected": "Punch blocked due to new rules"
+  },
+  {
+    "id": "X-LOC-002",
+    "role": "cross",
+    "module": "Location rules",
+    "screen": "Cross flow",
+    "functionality": "Assign location unlocks clock",
+    "online": true,
+    "offline": false,
+    "layer": "C",
+    "tags": [
+      "cross",
+      "locations",
+      "clock"
+    ],
+    "steps": [
+      "Employee has no location / wrong assignment",
+      "Manager assigns correct location",
+      "Employee clocks in"
+    ],
+    "expected": "After assign, in-range punch works"
+  },
+  {
+    "id": "X-ALR-001",
+    "role": "cross",
+    "module": "Alerts sync",
+    "screen": "Cross flow",
+    "functionality": "Manager action creates employee alert",
+    "online": true,
+    "offline": false,
+    "layer": "C",
+    "tags": [
+      "cross",
+      "alerts"
+    ],
+    "steps": [
+      "Manager performs notifiable action (approve/reject)",
+      "Employee opens Alerts"
+    ],
+    "expected": "Corresponding alert appears for employee"
+  },
+  {
+    "id": "X-SESS-001",
+    "role": "cross",
+    "module": "Role switch",
+    "screen": "Cross flow",
+    "functionality": "Same device employee then manager",
+    "online": true,
+    "offline": false,
+    "layer": "C",
+    "tags": [
+      "cross",
+      "session",
+      "security"
+    ],
+    "steps": [
+      "Login employee",
+      "Logout",
+      "Login manager on same device"
+    ],
+    "expected": "No data bleed; correct role shells"
+  },
+  {
+    "id": "QA-UI-001",
+    "role": "shared",
+    "module": "Quality",
+    "screen": "Global",
+    "functionality": "No clipped text on key screens",
+    "online": true,
+    "offline": true,
+    "layer": "D",
+    "tags": [
+      "ui",
+      "spelling",
+      "responsiveness"
+    ],
+    "steps": [
+      "Walk Splash, Login, Clock, Attendance, Alerts, More",
+      "Note overflow/clipping"
+    ],
+    "expected": "No clipped/overflow text on phone sizes tested"
+  },
+  {
+    "id": "QA-UI-002",
+    "role": "shared",
+    "module": "Quality",
+    "screen": "Global",
+    "functionality": "Spelling/grammar on visible copy",
+    "online": true,
+    "offline": true,
+    "layer": "D",
+    "tags": [
+      "spelling",
+      "ui"
+    ],
+    "steps": [
+      "Scan primary CTAs labels errors empty states"
+    ],
+    "expected": "No obvious typos; brand casing consistent"
+  },
+  {
+    "id": "QA-UI-003",
+    "role": "shared",
+    "module": "Quality",
+    "screen": "Global",
+    "functionality": "Small phone responsiveness",
+    "online": true,
+    "offline": true,
+    "layer": "D",
+    "tags": [
+      "responsiveness",
+      "ui"
+    ],
+    "steps": [
+      "Run on small viewport / compact device",
+      "Check Login Clock More sheets"
+    ],
+    "expected": "Controls tappable; no horizontal scroll bugs"
+  },
+  {
+    "id": "QA-UI-004",
+    "role": "shared",
+    "module": "Quality",
+    "screen": "Global",
+    "functionality": "Large font / accessibility scale",
+    "online": true,
+    "offline": true,
+    "layer": "D",
+    "tags": [
+      "responsiveness",
+      "ui",
+      "a11y"
+    ],
+    "steps": [
+      "Increase system font size",
+      "Open Login and Clock"
+    ],
+    "expected": "Layouts reflow without unusable overlap"
+  },
+  {
+    "id": "QA-UI-005",
+    "role": "manager",
+    "module": "Quality",
+    "screen": "Manager UI",
+    "functionality": "Manager dense lists scroll smooth",
+    "online": true,
+    "offline": false,
+    "layer": "D",
+    "tags": [
+      "ui",
+      "responsiveness",
+      "manager"
+    ],
+    "steps": [
+      "Scroll long employee and attendance lists"
+    ],
+    "expected": "Smooth scroll; sticky headers if any behave"
+  },
+  {
+    "id": "QA-UI-006",
+    "role": "employee",
+    "module": "Quality",
+    "screen": "Sheets",
+    "functionality": "Bottom sheets dismiss correctly",
+    "online": true,
+    "offline": false,
+    "layer": "D",
+    "tags": [
+      "ui",
+      "responsiveness"
+    ],
+    "steps": [
+      "Open add-attendance / location sheets",
+      "Swipe/tap dismiss"
+    ],
+    "expected": "Dismiss clean; no gesture trap"
+  },
+  {
+    "id": "QA-UI-007",
+    "role": "shared",
+    "module": "Quality",
+    "screen": "Dark/System",
+    "functionality": "System theme if supported",
+    "online": true,
+    "offline": true,
+    "layer": "D",
+    "tags": [
+      "ui",
+      "responsiveness"
+    ],
+    "steps": [
+      "Toggle system dark/light if app follows system"
+    ],
+    "expected": "Contrast readable; no invisible text"
+  },
+  {
+    "id": "QA-SEC-001",
+    "role": "shared",
+    "module": "Quality",
+    "screen": "Security",
+    "functionality": "Password not logged in clear UI",
+    "online": true,
+    "offline": false,
+    "layer": "D",
+    "tags": [
+      "security"
+    ],
+    "steps": [
+      "Enter password",
+      "Background/foreground",
+      "Check fields"
+    ],
+    "expected": "Password remains masked; no plaintext in unexpected UI"
+  },
+  {
+    "id": "QA-SEC-002",
+    "role": "shared",
+    "module": "Quality",
+    "screen": "Security",
+    "functionality": "Screenshots on sensitive screens policy",
+    "online": true,
+    "offline": false,
+    "layer": "D",
+    "tags": [
+      "security"
+    ],
+    "steps": [
+      "On login/password change observe FLAG_SECURE if expected"
+    ],
+    "expected": "Matches product security policy"
+  },
+  {
+    "id": "QA-SEC-003",
+    "role": "shared",
+    "module": "Quality",
+    "screen": "Security",
+    "functionality": "Logout clears local private lists",
+    "online": true,
+    "offline": false,
+    "layer": "D",
+    "tags": [
+      "security",
+      "session"
+    ],
+    "steps": [
+      "View attendance",
+      "Logout",
+      "Attempt back navigation"
+    ],
+    "expected": "Cannot view prior private lists"
+  },
+  {
+    "id": "QA-MEM-001",
+    "role": "shared",
+    "module": "Quality",
+    "screen": "Memory",
+    "functionality": "Rotate / resume no leak crash",
+    "online": true,
+    "offline": false,
+    "layer": "D",
+    "tags": [
+      "memory",
+      "ui"
+    ],
+    "steps": [
+      "Open heavy screens (map, lists)",
+      "Background 30s",
+      "Resume",
+      "Rotate if supported"
+    ],
+    "expected": "No crash; memory stable enough for session"
+  },
+  {
+    "id": "QA-MEM-002",
+    "role": "shared",
+    "module": "Quality",
+    "screen": "Memory",
+    "functionality": "Rapid tab switching",
+    "online": true,
+    "offline": false,
+    "layer": "D",
+    "tags": [
+      "memory",
+      "nav"
+    ],
+    "steps": [
+      "Rapidly switch bottom tabs 30 times"
+    ],
+    "expected": "No freeze/crash; UI remains responsive"
+  },
+  {
+    "id": "QA-OFF-001",
+    "role": "shared",
+    "module": "Quality",
+    "screen": "Offline",
+    "functionality": "Airplane mode tour of tabs",
+    "online": false,
+    "offline": true,
+    "layer": "D",
+    "tags": [
+      "offline",
+      "ui"
+    ],
+    "steps": [
+      "Airplane mode",
+      "Visit each primary tab"
+    ],
+    "expected": "Graceful empty/offline states; no ANR"
+  }
+]

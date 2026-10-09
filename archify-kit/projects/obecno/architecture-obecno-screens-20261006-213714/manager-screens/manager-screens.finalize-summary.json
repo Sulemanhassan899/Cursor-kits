@@ -1,0 +1,302 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/hassan/Documents/obecno-archify/architecture-obecno-screens-20261006-213714/manager-screens/candidate.json",
+    "sha256": "d5c6b9ee19b2046939e5ac58df9bdde8a72bd4a485ac255e244c5f7df89052c7",
+    "bytes": 6287
+  },
+  "artifact": {
+    "path": "/Users/hassan/Documents/obecno-archify/architecture-obecno-screens-20261006-213714/manager-screens/manager-screens.html",
+    "sha256": "91c79f1ad213e3d5c76dd01bebac75cbf0a69e0001d9dbd17c4d8fe215dce2f2",
+    "bytes": 774384
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/hassan/Documents/obecno-archify/architecture-obecno-screens-20261006-213714/manager-screens/manager-screens.finalize.json",
+    "summaryReceipt": "/Users/hassan/Documents/obecno-archify/architecture-obecno-screens-20261006-213714/manager-screens/manager-screens.finalize-summary.json",
+    "browserCheckReceipt": "/Users/hassan/Documents/obecno-archify/architecture-obecno-screens-20261006-213714/manager-screens/manager-screens.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.0.1",
+    "availableVersion": "3.0.1",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-06T16:31:19.702Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2362,
+  "visualReviewRecommendation": {
+    "action": "inspect-route-readability",
+    "signals": {
+      "resolvedCrossovers": 11,
+      "routesOverSuggestedBends": 4,
+      "routesOverSuggestedStretch": 1
+    },
+    "reason": "Automated gates passed, but crossings or detours still need perceptual review before claiming visual quality.",
+    "affectedRoutes": {
+      "crossings": [
+        {
+          "left": {
+            "id": "nav-ov",
+            "from": "manager-nav",
+            "to": "overview",
+            "label": "Overview",
+            "collectionIndex": 0,
+            "artifactIndex": 1
+          },
+          "right": {
+            "id": "nav-clock",
+            "from": "manager-nav",
+            "to": "clock",
+            "label": "Clock",
+            "collectionIndex": 1,
+            "artifactIndex": 2
+          },
+          "point": [
+            606,
+            276
+          ],
+          "sharedNode": "manager-nav"
+        },
+        {
+          "left": {
+            "id": "nav-ov",
+            "from": "manager-nav",
+            "to": "overview",
+            "label": "Overview",
+            "collectionIndex": 0,
+            "artifactIndex": 1
+          },
+          "right": {
+            "id": "nav-att",
+            "from": "manager-nav",
+            "to": "attendance",
+            "label": "Attendance",
+            "collectionIndex": 2,
+            "artifactIndex": 3
+          },
+          "point": [
+            606,
+            241.6153846153846
+          ],
+          "sharedNode": "manager-nav"
+        },
+        {
+          "left": {
+            "id": "nav-ov",
+            "from": "manager-nav",
+            "to": "overview",
+            "label": "Overview",
+            "collectionIndex": 0,
+            "artifactIndex": 1
+          },
+          "right": {
+            "id": "ov-add-loc",
+            "from": "overview",
+            "to": "add-location",
+            "label": "Add Location",
+            "collectionIndex": 7,
+            "artifactIndex": 8
+          },
+          "point": [
+            317,
+            208
+          ],
+          "sharedNode": "overview"
+        },
+        {
+          "left": {
+            "id": "nav-ov",
+            "from": "manager-nav",
+            "to": "overview",
+            "label": "Overview",
+            "collectionIndex": 0,
+            "artifactIndex": 1
+          },
+          "right": {
+            "id": "ov-add-emp",
+            "from": "overview",
+            "to": "add-employee",
+            "label": "Add Employee",
+            "collectionIndex": 8,
+            "artifactIndex": 9
+          },
+          "point": [
+            483,
+            208
+          ],
+          "sharedNode": "overview"
+        },
+        {
+          "left": {
+            "id": "nav-ov",
+            "from": "manager-nav",
+            "to": "overview",
+            "label": "Overview",
+            "collectionIndex": 0,
+            "artifactIndex": 1
+          },
+          "right": {
+            "id": "att-details",
+            "from": "attendance",
+            "to": "att-details",
+            "label": "row tap",
+            "collectionIndex": 9,
+            "artifactIndex": 10
+          },
+          "point": [
+            587,
+            208
+          ]
+        },
+        {
+          "left": {
+            "id": "nav-clock",
+            "from": "manager-nav",
+            "to": "clock",
+            "label": "Clock",
+            "collectionIndex": 1,
+            "artifactIndex": 2
+          },
+          "right": {
+            "id": "ov-add-loc",
+            "from": "overview",
+            "to": "add-location",
+            "label": "Add Location",
+            "collectionIndex": 7,
+            "artifactIndex": 8
+          },
+          "point": [
+            536,
+            276
+          ]
+        },
+        {
+          "left": {
+            "id": "nav-clock",
+            "from": "manager-nav",
+            "to": "clock",
+            "label": "Clock",
+            "collectionIndex": 1,
+            "artifactIndex": 2
+          },
+          "right": {
+            "id": "ov-add-emp",
+            "from": "overview",
+            "to": "add-employee",
+            "label": "Add Employee",
+            "collectionIndex": 8,
+            "artifactIndex": 9
+          },
+          "point": [
+            483,
+            276
+          ]
+        },
+        {
+          "left": {
+            "id": "nav-clock",
+            "from": "manager-nav",
+            "to": "clock",
+            "label": "Clock",
+            "collectionIndex": 1,
+            "artifactIndex": 2
+          },
+          "right": {
+            "id": "att-details",
+            "from": "attendance",
+            "to": "att-details",
+            "label": "row tap",
+            "collectionIndex": 9,
+            "artifactIndex": 10
+          },
+          "point": [
+            557,
+            276
+          ]
+        }
+      ],
+      "detours": [
+        {
+          "relationship": {
+            "id": "ov-add-loc",
+            "from": "overview",
+            "to": "add-location",
+            "label": "Add Location",
+            "collectionIndex": 7,
+            "artifactIndex": 8
+          },
+          "bends": 4,
+          "stretch": 1
+        },
+        {
+          "relationship": {
+            "id": "ov-add-emp",
+            "from": "overview",
+            "to": "add-employee",
+            "label": "Add Employee",
+            "collectionIndex": 8,
+            "artifactIndex": 9
+          },
+          "bends": 6,
+          "stretch": 1.092
+        },
+        {
+          "relationship": {
+            "id": "att-details",
+            "from": "attendance",
+            "to": "att-details",
+            "label": "row tap",
+            "collectionIndex": 9,
+            "artifactIndex": 10
+          },
+          "bends": 4,
+          "stretch": 1.145
+        },
+        {
+          "relationship": {
+            "id": "emps-profile",
+            "from": "all-employees",
+            "to": "emp-profile",
+            "label": "employee card",
+            "collectionIndex": 10,
+            "artifactIndex": 11
+          },
+          "bends": 4,
+          "stretch": 1.478
+        }
+      ],
+      "truncated": true
+    },
+    "hints": [
+      "manager-nav → overview and manager-nav → clock cross next to manager-nav: move node overview or clock so the two reach manager-nav from different sides (for example one level with it, one directly above or below it).",
+      "manager-nav → overview and manager-nav → attendance cross next to manager-nav: move node overview or attendance so the two reach manager-nav from different sides (for example one level with it, one directly above or below it).",
+      "manager-nav → overview and overview → add-location cross next to overview: move node manager-nav or add-location so the two reach overview from different sides (for example one level with it, one directly above or below it).",
+      "manager-nav → overview and overview → add-employee cross next to overview: move node manager-nav or add-employee so the two reach overview from different sides (for example one level with it, one directly above or below it).",
+      "manager-nav → overview crosses attendance → att-details: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "manager-nav → clock crosses overview → add-location: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "manager-nav → clock crosses overview → add-employee: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "manager-nav → clock crosses attendance → att-details: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor."
+    ],
+    "repair": "Trace these relationships at the desktop viewport. For Architecture, use references/architecture-layout-repair.md: reflow a blocked main path or tangled connected scene, and repair an isolated defect locally only when the surrounding composition is accepted. Preserve all semantic content and user-fixed geometry. Rerun finalize once after the edit."
+  }
+}

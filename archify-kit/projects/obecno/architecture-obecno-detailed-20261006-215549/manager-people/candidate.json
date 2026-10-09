@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "3b · Manager — screens & sheet flows",
+    "subtitle": "Dashed = bottom sheets · solid = pushed screens",
+    "output": "manager-people.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Sulemanhassan899/obecno.git",
+      "provider": "github",
+      "revision": "674dbc537595bdbcaba8142674b813cf27ffe7d2"
+    }
+  },
+  "components": [
+    { "id": "overview", "type": "frontend", "label": "Overview", "sublabel": "actions grid", "pos": [40, 100], "size": [120, 56] },
+    { "id": "add-emp", "type": "frontend", "label": "Add employee", "sublabel": "AddEmployeeSheet", "pos": [220, 40], "size": [140, 52], "tag": "sheet" },
+    { "id": "invite-sent", "type": "frontend", "label": "Invite sent", "sublabel": "InviteSentDialog", "pos": [220, 140], "size": [140, 48], "tag": "sheet" },
+    { "id": "add-loc", "type": "frontend", "label": "New location", "sublabel": "NewLocationSheet", "pos": [40, 220], "size": [140, 52], "tag": "sheet" },
+    { "id": "add-members", "type": "frontend", "label": "Add members", "sublabel": "AddMembersSheet", "pos": [220, 220], "size": [140, 52], "tag": "sheet" },
+    { "id": "all-emp", "type": "frontend", "label": "All employees", "sublabel": "/manager/employees", "pos": [420, 40], "size": [150, 52], "sources": [{ "path": "lib/core/routes/app_routes.dart", "line": 67, "end_line": 69, "label": "route" }] },
+    { "id": "all-loc", "type": "frontend", "label": "All locations", "sublabel": "/manager/locations", "pos": [420, 220], "size": [150, 52] },
+    { "id": "emp-profile", "type": "frontend", "label": "Employee profile", "sublabel": "ManagerEmployeeProfileSheet", "pos": [640, 40], "size": [170, 52], "tag": "sheet" },
+    { "id": "account-info", "type": "frontend", "label": "Account info", "sublabel": "AccountInformationSheet", "pos": [640, 140], "size": [150, 48], "tag": "sheet" },
+    { "id": "emp-att", "type": "frontend", "label": "Emp. attendance", "sublabel": "ManagerEmployeeAttendanceSheet", "pos": [840, 40], "size": [160, 48], "tag": "sheet" },
+    { "id": "emp-locs", "type": "frontend", "label": "Assigned locations", "sublabel": "EmployeeDefaultLocationsSheet", "pos": [840, 120], "size": [160, 48], "tag": "sheet" },
+    { "id": "emp-devices", "type": "frontend", "label": "Linked devices", "sublabel": "ManagerLinkedDevicesSheet", "pos": [840, 200], "size": [150, 48], "tag": "sheet" },
+    { "id": "schedule-sheets", "type": "frontend", "label": "Schedule sheets", "sublabel": "check-in · days · break", "pos": [640, 230], "size": [170, 48], "tag": "sheet" },
+    { "id": "loc-overview", "type": "frontend", "label": "Location overview", "sublabel": "screen", "pos": [420, 360], "size": [150, 52] },
+    { "id": "loc-setup", "type": "frontend", "label": "Location setup", "sublabel": "screen", "pos": [640, 380], "size": [140, 52] },
+    { "id": "loc-map", "type": "frontend", "label": "Map setup", "sublabel": "screen", "pos": [840, 380], "size": [140, 52] },
+    { "id": "attendance", "type": "frontend", "label": "Team attendance", "sublabel": "tab", "pos": [40, 500], "size": [150, 52] },
+    { "id": "att-details", "type": "frontend", "label": "Attendance details", "sublabel": "ManagerAttendanceDetailsSheet", "pos": [260, 500], "size": [180, 52], "tag": "sheet" },
+    { "id": "mgr-add", "type": "frontend", "label": "Add / edit punch", "sublabel": "AddAttendanceBottomSheet", "pos": [500, 500], "size": [160, 52], "tag": "sheet" },
+    { "id": "status-filter", "type": "frontend", "label": "Status filter", "sublabel": "StatusFilterSheet", "pos": [40, 640], "size": [140, 48], "tag": "sheet" },
+    { "id": "loc-filter", "type": "frontend", "label": "Location filter", "sublabel": "LocationsFilterSheet", "pos": [240, 640], "size": [150, 48], "tag": "sheet" }
+  ],
+  "boundaries": [],
+  "connections": [
+    { "id": "o3", "from": "overview", "to": "add-emp", "label": "Add Employee", "variant": "dashed" },
+    { "id": "o4", "from": "overview", "to": "add-loc", "label": "Add Location", "variant": "dashed" },
+    { "id": "o1", "from": "overview", "to": "all-emp", "label": "All employees", "variant": "emphasis" },
+    { "id": "o2", "from": "overview", "to": "all-loc", "label": "All locations" },
+    { "id": "i1", "from": "add-emp", "to": "invite-sent", "label": "ok", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "m1", "from": "add-loc", "to": "add-members", "label": "members", "variant": "dashed" },
+    { "id": "e1", "from": "all-emp", "to": "emp-profile", "label": "card tap", "variant": "dashed" },
+    { "id": "e2", "from": "emp-profile", "to": "account-info", "label": "Account", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "e3", "from": "emp-profile", "to": "emp-att", "label": "Attendance", "variant": "dashed" },
+    { "id": "e4", "from": "emp-profile", "to": "emp-locs", "label": "Locations", "variant": "dashed" },
+    { "id": "e5", "from": "emp-profile", "to": "emp-devices", "label": "Devices", "variant": "dashed" },
+    { "id": "e6", "from": "emp-profile", "to": "schedule-sheets", "label": "schedule", "variant": "dashed" },
+    { "id": "l1", "from": "all-loc", "to": "loc-overview", "label": "open", "fromSide": "bottom", "toSide": "top" },
+    { "id": "l2", "from": "loc-overview", "to": "loc-setup" },
+    { "id": "l3", "from": "loc-setup", "to": "loc-map", "label": "map" },
+    { "id": "a1", "from": "attendance", "to": "att-details", "label": "row tap", "variant": "dashed" },
+    { "id": "a2", "from": "attendance", "to": "status-filter", "label": "status", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "a3", "from": "attendance", "to": "loc-filter", "label": "location", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "a4", "from": "att-details", "to": "mgr-add", "label": "edit punch", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Dashed = sheets", "items": ["Overview opens Add employee / New location sheets", "Profile opens account, attendance, locations, devices, schedule sheets"] },
+    { "dot": "emerald", "title": "Attendance", "items": ["Row tap → details → Add/edit punch"] }
+  ]
+}
